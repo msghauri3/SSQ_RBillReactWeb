@@ -20,27 +20,30 @@ const LinksBar = () => {
         top: 0, 
         zIndex: 100,
         borderRadius: 0,
-        backgroundColor: 'white', // White background
+        backgroundColor: 'white',
       }}
     >
       <Container maxWidth="lg">
         <Box sx={{ 
           display: 'flex', 
-          justifyContent: 'space-between', // Space between logo and links
+          justifyContent: 'space-between',
           alignItems: 'center',
           py: 1.5
         }}>
-          {/* Logo space on the left */}
+          {/* Logo from public folder with specific dimensions */}
           <Box sx={{ 
-            width: 120, 
-            height: 40, 
-            backgroundColor: '#f5f5f5',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 1
+            alignItems: 'center'
           }}>
-            <span style={{ color: '#002e5b', fontWeight: 'bold' }}>LOGO</span>
+            <img 
+              src="/logo02.png" // Path to your logo in public folder
+              alt="Company Logo" 
+              style={{ 
+                width: '200px',   // Specific width
+                height: '60px',   // Specific height
+                objectFit: 'contain' // Maintain aspect ratio
+              }}
+            />
           </Box>
           
           {/* Links aligned to the right */}
