@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import { Paper, Container, Box, Button } from '@mui/material';
+import { Link, useLocation } from 'react-router-dom';
 
 const LinksBar = () => {
-  const [activeTab, setActiveTab] = useState('home');
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.pathname === '/' ? 'home' : location.pathname.slice(1));
   
   const tabs = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'services', label: 'Services' },
-    { id: 'portfolio', label: 'Portfolio' },
-    { id: 'contact', label: 'Contact' }
+    { id: 'home', label: 'Home', path: '/' },
+    { id: 'about', label: 'About', path: '/about' },
+    { id: 'services', label: 'Services', path: '/services' },
+    { id: 'portfolio', label: 'Portfolio', path: '/portfolio' },
+    { id: 'contact', label: 'Contact', path: '/contact' }
   ];
+
+  // Update activeTab when location changes
+  React.useEffect(() => {
+    const currentPath = location.pathname;
+    if (currentPath === '/') {
+      setActiveTab('home');
+    } else {
+      setActiveTab(currentPath.slice(1));
+    }
+  }, [location.pathname]);
 
   return (
     <Paper 
@@ -36,12 +48,12 @@ const LinksBar = () => {
             alignItems: 'center'
           }}>
             <img 
-              src="/logo02.png" // Path to your logo in public folder
+              src="/logo02.png"
               alt="Company Logo" 
               style={{ 
-                width: '200px',   // Specific width
-                height: '60px',   // Specific height
-                objectFit: 'contain' // Maintain aspect ratio
+                width: '200px',
+                height: '60px',
+                objectFit: 'contain'
               }}
             />
           </Box>
@@ -51,6 +63,8 @@ const LinksBar = () => {
             {tabs.map((tab) => (
               <Button
                 key={tab.id}
+                component={Link}
+                to={tab.path}
                 onClick={() => setActiveTab(tab.id)}
                 sx={{
                   color: activeTab === tab.id ? '#002e5b' : 'text.secondary',
