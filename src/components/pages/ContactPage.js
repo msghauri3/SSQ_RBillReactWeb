@@ -18,9 +18,9 @@ const ContactPage = () => {
             <Typography variant="h6" sx={{ mb: 1, color: '#002e5b' }}>
               Contact Information
             </Typography>
-            <Typography>Email: info@company.com</Typography>
-            <Typography>Phone: +1 (555) 123-4567</Typography>
-            <Typography>Address: 123 Business St, City, State 12345</Typography>
+            <Typography>Email: info@Coditium.com</Typography>
+            <Typography>Phone: +92 (333) 519-1392</Typography>
+            <Typography>Address: Bahria Town, Karachi</Typography>
           </Box>
         </Grid>
         

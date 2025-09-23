@@ -17,7 +17,7 @@ const Footer = () => {
     <Box 
       component="footer" 
       sx={{ 
-        backgroundColor: '#002e5b', // Blue background
+        backgroundColor: '#002e5b', 
         color: 'white',
         py: 6,
         mt: 8
@@ -25,32 +25,27 @@ const Footer = () => {
     >
       <Container maxWidth="lg">
         <Grid container spacing={4}>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" gutterBottom>
-              YourBrand
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              Creating beautiful digital experiences that captivate your audience and drive results.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={4}>
+          {/* Contact Us Column */}
+          <Grid item xs={12} md={6}>
             <Typography variant="h6" gutterBottom>
               Contact Us
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
               <Phone sx={{ mr: 1, fontSize: '20px' }} />
-              <Typography variant="body2">+1 (555) 123-4567</Typography>
+              <Typography variant="body2">+92 (333) 519-1392</Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
               <Email sx={{ mr: 1, fontSize: '20px' }} />
-              <Typography variant="body2">info@yourbrand.com</Typography>
+              <Typography variant="body2">info@coditium.com</Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <LocationOn sx={{ mr: 1, fontSize: '20px' }} />
-              <Typography variant="body2">123 Design Street, Creative City</Typography>
+              <Typography variant="body2">Bahria Town, Karachi</Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={4}>
+
+          {/* Follow Us Column */}
+          <Grid item xs={12} md={6}>
             <Typography variant="h6" gutterBottom>
               Follow Us
             </Typography>
@@ -75,8 +70,10 @@ const Footer = () => {
             </Box>
           </Grid>
         </Grid>
+
+        {/* Bottom Copyright */}
         <Typography variant="body2" align="center" sx={{ mt: 4 }}>
-          © {new Date().getFullYear()} YourBrand. All rights reserved.
+          © {new Date().getFullYear()} Coditium. All rights reserved.
         </Typography>
       </Container>
     </Box>
