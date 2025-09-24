@@ -1,98 +1,165 @@
 import React from 'react';
-import { Container, Typography, Box, Grid, Card, CardContent } from '@mui/material';
+import { Container, Typography, Box, Grid, Paper, Button } from '@mui/material';
+import { ArrowForward } from '@mui/icons-material';
 
 const AboutPage = () => {
   return (
-    <Container maxWidth="lg" sx={{ py: 8, minHeight: '60vh' }}>
-      <Typography
-        variant="h3"
-        component="h1"
-        sx={{
-          fontWeight: 'bold',
-          mb: 6,
-          color: '#002e5b',
-          textAlign: 'center'
-        }}
-      >
-        About Us
-      </Typography>
+    <Container maxWidth="lg" sx={{ py: 8, minHeight: '80vh' }}>
+      {/* Page Header */}
+      <Box sx={{ textAlign: 'center', mb: 6 }}>
+        <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold', mb: 2, color: '#002e5b' }}>
+          About Us
+        </Typography>
+        <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 800, mx: 'auto', lineHeight: 1.6 }}>
+          Crafting Digital Excellence Through Innovative Software Solutions
+        </Typography>
+      </Box>
 
-      {/* ✅ Force One Row + Two Columns Always */}
-      <Grid container spacing={4} alignItems="stretch">
-        
-        {/* Left Column - Image */}
-        <Grid item xs={6}>
-          <Card sx={{ boxShadow: 4, borderRadius: 3, overflow: 'hidden', height: '100%' }}>
+      {/* Main Content - One Row, Two Columns */}
+      <Paper elevation={2} sx={{ borderRadius: 3, overflow: 'hidden' }}>
+        <Grid container spacing={0} sx={{ minHeight: '500px' }}>
+          
+          {/* First Column - Image */}
+          <Grid item xs={12} md={6}>
             <Box
               component="img"
-              src="/cards/card01.png"
-              alt="About Our Company"
+              src="/aboutus/card01.png" 
+              alt="Our Software Development Team"
               sx={{
                 width: '100%',
                 height: '100%',
-                minHeight: '400px',
-                objectFit: 'cover'
+                minHeight: '500px',
+                objectFit: 'cover',
+                display: 'block'
+              }}
+              onError={(e) => {
+                e.target.src = '/about-placeholder.jpg';
               }}
             />
-          </Card>
-        </Grid>
-
-        {/* Right Column - About Text */}
-        <Grid item xs={6}>
-          <Card sx={{ p: 4, boxShadow: 4, borderRadius: 3, height: '100%' }}>
-            <CardContent>
+          </Grid>
+          
+          {/* Second Column - Details */}
+          <Grid item xs={12} md={6}>
+            <Box sx={{ 
+              p: 6, 
+              height: '100%', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'center',
+              backgroundColor: '#f8f9fa'
+            }}>
               <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#002e5b' }}>
-                Our Story
+                Who We Are
+              </Typography>
+              
+              <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 3, fontSize: '1.1rem' }}>
+                We are a passionate team of software engineers, designers, and digital strategists 
+                dedicated to transforming ideas into powerful digital solutions. With years of 
+                experience in the tech industry, we specialize in creating custom software that 
+                drives business growth and delivers exceptional user experiences.
+              </Typography>
+              
+              <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 4, fontSize: '1.1rem' }}>
+                Our mission is to bridge the gap between technology and business needs, providing 
+                innovative solutions that are scalable, secure, and future-ready. We believe in 
+                the power of technology to solve complex problems and create meaningful impact 
+                for our clients worldwide.
               </Typography>
 
-              <Typography variant="body1" sx={{ lineHeight: 1.8, fontSize: '1.1rem', mb: 4 }}>
-                At <strong>Coditium</strong>, we are committed to delivering innovative software solutions 
-                that empower businesses to succeed in the digital era. Our expertise includes 
-                <strong> .NET Core applications, mobile app development, and AI-driven projects</strong> 
-                designed to enhance efficiency and decision-making.
-                <br /><br />
-                We focus on <strong>quality, scalability, and security</strong>, ensuring that every project 
-                we deliver aligns with industry standards and best practices. Our mission is simple: 
-                to build technology that drives growth and innovation.
-              </Typography>
-
-              <Grid container spacing={3} sx={{ mb: 3 }}>
-                <Grid item xs={6}>
-                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#f0f7ff', borderRadius: 2 }}>
-                    <Typography variant="h5" sx={{ color: '#002e5b', fontWeight: 'bold' }}>
-                      5+
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Years Experience
-                    </Typography>
-                  </Box>
+              {/* Key Highlights */}
+              <Box sx={{ mb: 4 }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
+                    <Box sx={{ textAlign: 'center', p: 2 }}>
+                      <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#002e5b' }}>
+                        20+
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Years Experience
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box sx={{ textAlign: 'center', p: 2 }}>
+                      <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#002e5b' }}>
+                        50+
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Projects Delivered
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box sx={{ textAlign: 'center', p: 2 }}>
+                      <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#002e5b' }}>
+                        50+
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Happy Clients
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box sx={{ textAlign: 'center', p: 2 }}>
+                      <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#002e5b' }}>
+                        24/7
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Support
+                      </Typography>
+                    </Box>
+                  </Grid>
                 </Grid>
-
-                <Grid item xs={6}>
-                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#f0f7ff', borderRadius: 2 }}>
-                    <Typography variant="h5" sx={{ color: '#002e5b', fontWeight: 'bold' }}>
-                      100+
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Projects Completed
-                    </Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-
-              <Box sx={{ mt: 3 }}>
-                <Typography variant="h6" sx={{ mb: 2, color: '#002e5b' }}>
-                  Our Values
-                </Typography>
-                <Typography variant="body2" sx={{ lineHeight: 1.8 }}>
-                  • Innovation & Creativity • Quality & Excellence • 
-                  Customer Satisfaction • Continuous Improvement • Team Collaboration
-                </Typography>
               </Box>
-            </CardContent>
-          </Card>
+
+              {/* Core Values */}
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" sx={{ mb: 2, color: '#002e5b' }}>
+                  Our Core Values
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                  {['Innovation', 'Quality', 'Reliability', 'Excellence', 'Collaboration'].map((value, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        px: 2,
+                        py: 1,
+                        backgroundColor: '#002e5b',
+                        color: 'white',
+                        borderRadius: 2,
+                        fontSize: '0.9rem',
+                        fontWeight: '500'
+                      }}
+                    >
+                      {value}
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+
+              <Button
+                variant="contained"
+                endIcon={<ArrowForward />}
+                sx={{
+                  backgroundColor: '#002e5b',
+                  px: 4,
+                  py: 1.5,
+                  fontSize: '1rem',
+                  alignSelf: 'flex-start',
+                  '&:hover': {
+                    backgroundColor: '#00498a'
+                  }
+                }}
+              >
+                Learn More About Our Work
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
+
+      {/* Additional Info Section */}
+      
     </Container>
   );
 };

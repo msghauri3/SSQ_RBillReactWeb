@@ -30,7 +30,7 @@ const SliderBar = () => {
       subtitle: "Building the future with cutting-edge technologies",
       description: "Our team uses the latest technologies and frameworks to build robust, scalable, and high-performance applications.",
       image: {
-        src: "/slider02.jpg",
+        src: "/slider06.jpg",
         alt: "Modern Development",
         width: "100%",
         height: "100%",
@@ -43,7 +43,7 @@ const SliderBar = () => {
       subtitle: "Pushing boundaries and delivering exceptional results",
       description: "We combine creativity with technical expertise to deliver innovative solutions that exceed client expectations.",
       image: {
-        src: "/slider03.jpg",
+        src: "/slider02.jpg",
         alt: "Innovation Excellence",
         width: "100%",
         height: "100%",
