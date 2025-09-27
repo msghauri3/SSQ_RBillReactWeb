@@ -34,16 +34,10 @@ const BillingComponent = () => {
   const [billGenerated, setBillGenerated] = useState(false);
   const [error, setError] = useState('');
 
-  // Billing types
-  const billingTypes = [
-    { value: 'electricity', label: 'Electricity Billing' },
-    { value: 'maintenance', label: 'Maintenance Billing' }
-  ];
-
   // Projects
   const projects = [
-    { value: 'mohlanwal', label: 'Mohlanwal' },
-    { value: 'orchards', label: 'Orchards' }
+    { value: 'mohlanwal', label: 'MOHLANWAL - Residential' },
+    { value: 'orchards', label: 'Orchard / EMC / NASHEMAN / ROSE GARDEN' }
   ];
 
   // Default amounts based on project and billing type
@@ -65,16 +59,15 @@ const BillingComponent = () => {
       [name]: value
     }));
 
-    // Clear error when user starts typing
     if (error) setError('');
   };
 
   const handleProjectChange = (e) => {
     const project = e.target.value;
     const billingType = billingData.billingType;
-    
+
     const amount = billingType ? (defaultAmounts[billingType]?.[project] || 0) : 0;
-    
+
     setBillingData(prev => ({
       ...prev,
       project: project,
@@ -82,21 +75,19 @@ const BillingComponent = () => {
     }));
   };
 
-  const handleBillingTypeChange = (e) => {
-    const billingType = e.target.value;
+  const handleBillingTypeChange = (type) => {
     const project = billingData.project;
-    
-    const amount = project ? (defaultAmounts[billingType]?.[project] || 0) : 0;
-    
+    const amount = project ? (defaultAmounts[type]?.[project] || 0) : 0;
+
     setBillingData(prev => ({
       ...prev,
-      billingType: billingType,
+      billingType: type,
       totalAmount: amount
     }));
+    if (error) setError('');
   };
 
   const calculateBill = () => {
-    // Validation
     if (!billingData.billingType) {
       setError('Please select billing type');
       return;
@@ -110,7 +101,6 @@ const BillingComponent = () => {
       return;
     }
 
-    // Mock customer data based on BTNo
     const mockCustomerData = {
       customerName: `Customer ${billingData.btNo}`,
       address: `House #${billingData.btNo}, ${billingData.project === 'mohlanwal' ? 'Mohlanwal Project' : 'Orchards Project'}`
@@ -141,7 +131,7 @@ const BillingComponent = () => {
       Total Amount: Rs. ${billingData.totalAmount}
       Date: ${billingData.billDate}
     `;
-    
+
     const blob = new Blob([billContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -165,7 +155,6 @@ const BillingComponent = () => {
     setError('');
   };
 
-  // Fixed styles for proper sizing
   const fieldStyles = {
     '& .MuiInputBase-root': {
       height: '50px',
@@ -193,10 +182,41 @@ const BillingComponent = () => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    
+      <Box sx={{ backgroundColor: "#002e5b", py: 6 }}>
+ <Container maxWidth="md" sx={{ py: 4}}>
       <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', mb: 3, color: '#002e5b', textAlign: 'center' }}>
+
+        <Typography
+          variant="h4"
+          component="h1"
+          sx={{
+            fontWeight: "bold",
+            mb: 3,
+            color: "#002e5b",
+            textAlign: "center"
+          }}
+        >
+          <Box
+            component="span"
+            sx={{
+              display: "inline-block",
+              px: 0.5,
+              py: 0.1,
+              borderRadius: "5px",
+              backgroundColor: "#002e5b",
+              color: "white",        // text white ho jaye ga
+              mr: 1,                 // thoda gap
+            }}
+          >
+            BAHRIA TOWN
+          </Box>
           Billing System
+        </Typography>
+
+
+        <Typography variant="h5" component="h5" sx={{ fontWeight: 'bold', mb: 3, color: '#002e5b', textAlign: 'center' }}>
+          GENERATE DUPLICATE BILL
         </Typography>
 
         {error && (
@@ -205,48 +225,65 @@ const BillingComponent = () => {
           </Alert>
         )}
 
-        {/* Only three fields as requested */}
-        <Grid container spacing={3}>
-          {/* Billing Type Selection */}
-          <Grid item xs={12} md={4}>
-            <FormControl fullWidth sx={selectStyles}>
-              <InputLabel>Billing Type</InputLabel>
-              <Select
-                name="billingType"
-                value={billingData.billingType}
-                onChange={handleBillingTypeChange}
-                label="Billing Type"
+  
+          {/* Electricity / Maintenance Buttons */}
+          <Grid item xs={12} sx={{ mb: 3 }}>
+            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+              <Button
+                variant={billingData.billingType === "electricity" ? "contained" : "outlined"}
+                onClick={() => handleBillingTypeChange("electricity")}
+                sx={{
+                  flex: 1,
+                  backgroundColor: billingData.billingType === "electricity" ? "#002e5b" : "transparent",
+                  color: billingData.billingType === "electricity" ? "#fff" : "#002e5b",
+                  "&:hover": {
+                    backgroundColor: billingData.billingType === "electricity" ? "#00498a" : "rgba(0,46,91,0.1)",
+                  },
+                  height: "50px"
+                }}
               >
-                {billingTypes.map((type) => (
-                  <MenuItem key={type.value} value={type.value}>
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                Electricity
+              </Button>
+              <Button
+                variant={billingData.billingType === "maintenance" ? "contained" : "outlined"}
+                onClick={() => handleBillingTypeChange("maintenance")}
+                sx={{
+                  flex: 1,
+                  backgroundColor: billingData.billingType === "maintenance" ? "#002e5b" : "transparent",
+                  color: billingData.billingType === "maintenance" ? "#fff" : "#002e5b",
+                  "&:hover": {
+                    backgroundColor: billingData.billingType === "maintenance" ? "#00498a" : "rgba(0,46,91,0.1)",
+                  },
+                  height: "50px"
+                }}
+              >
+                Maintenance
+              </Button>
+            </Box>
           </Grid>
 
           {/* BTNo Input */}
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sx={{ mb: 3 }}>
             <TextField
               sx={fieldStyles}
               label="BTNo"
               name="btNo"
               value={billingData.btNo}
               onChange={handleInputChange}
-              placeholder="Enter BT Number"
+              placeholder="Enter BTL Number (e.g 12345)"
               fullWidth
             />
           </Grid>
 
           {/* Project Selection */}
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sx={{ mb: 3 }}>
             <FormControl fullWidth sx={selectStyles}>
               <InputLabel>Project</InputLabel>
               <Select
                 name="project"
                 value={billingData.project}
                 onChange={handleProjectChange}
+                placeholder="Please select your project type"
                 label="Project"
               >
                 {projects.map((project) => (
@@ -259,7 +296,7 @@ const BillingComponent = () => {
           </Grid>
 
           {/* Action Buttons */}
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{ mb: 3 }}>
             <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 2 }}>
               <Button
                 variant="contained"
@@ -289,7 +326,6 @@ const BillingComponent = () => {
               </Button>
             </Box>
           </Grid>
-        </Grid>
 
         {/* Bill Display */}
         {billGenerated && (
@@ -367,6 +403,8 @@ const BillingComponent = () => {
         )}
       </Paper>
     </Container>
+  </Box>
+    
   );
 };
 

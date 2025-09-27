@@ -1,83 +1,65 @@
-import React, { useState } from 'react';
+// components/LinksBar.js
+import React from 'react';
 import { Paper, Container, Box, Button } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { scroller } from 'react-scroll';
 
 const LinksBar = () => {
+  const navigate = useNavigate();
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState(location.pathname === '/' ? 'home' : location.pathname.slice(1));
-  
+  const [activeTab, setActiveTab] = React.useState('billing');
+
   const tabs = [
-    { id: 'home', label: 'Home', path: '/' },
-    { id: 'about', label: 'About', path: '/about' },
-    { id: 'projects', label: 'Projects', path: '/projects' },
-    { id: 'contact', label: 'Contact', path: '/contact' },
-    { id: 'netmetering', label: 'Net Metering', path: '/netmetering' }
+    { id: 'billing', label: 'Billing', type: 'scroll' },
+    { id: 'about', label: 'About', type: 'scroll' },
+    { id: 'projects', label: 'Projects', type: 'scroll' },
+    { id: 'contact', label: 'Contact', type: 'scroll' },
+    { id: 'netmetering', label: 'Net Metering', type: 'route', path: '/netmetering' }
   ];
 
-  // Update activeTab when location changes
   React.useEffect(() => {
-    const currentPath = location.pathname;
-    if (currentPath === '/') {
-      setActiveTab('home');
-    } else {
-      setActiveTab(currentPath.slice(1));
-    }
+    // highlight netmetering when on that route, otherwise keep current active or default billing
+    if (location.pathname === '/netmetering') setActiveTab('netmetering');
   }, [location.pathname]);
 
+  const handleClick = (tab) => {
+    if (tab.type === 'route') {
+      setActiveTab(tab.id);
+      navigate(tab.path);
+      return;
+    }
+
+    // scroll type
+    if (location.pathname === '/') {
+      scroller.scrollTo(tab.id, { duration: 450, smooth: true, offset: -80 });
+      setActiveTab(tab.id);
+    } else {
+      // navigate to root and pass desired section via state
+      navigate('/', { state: { scrollTo: tab.id } });
+      setActiveTab(tab.id);
+    }
+  };
+
   return (
-    <Paper 
-      elevation={2} 
-      sx={{ 
-        position: 'sticky', 
-        top: 0, 
-        zIndex: 100,
-        borderRadius: 0,
-        backgroundColor: 'white',
-      }}
-    >
+    <Paper elevation={2} sx={{ position: 'sticky', top: 0, zIndex: 100, borderRadius: 0 }}>
       <Container maxWidth="lg">
-        <Box sx={{ 
-          display: 'flex', 
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          py: 1.5
-        }}>
-          {/* Logo from public folder with specific dimensions */}
-          <Box sx={{ 
-            display: 'flex',
-            alignItems: 'center'
-          }}>
-            <img 
-              src="/logo02.png"
-              alt="Company Logo" 
-              style={{ 
-                width: '200px',
-                height: '60px',
-                objectFit: 'contain'
-              }}
-            />
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 1.5 }}>
+          <Box>
+            <img src="/logo.png" alt="logo" style={{ width: 70, objectFit: 'fill' }} />
           </Box>
-          
-          {/* Links aligned to the right */}
+
           <Box sx={{ display: 'flex' }}>
-            {tabs.map((tab) => (
+            {tabs.map(tab => (
               <Button
                 key={tab.id}
-                component={Link}
-                to={tab.path}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleClick(tab)}
                 sx={{
                   color: activeTab === tab.id ? '#002e5b' : 'text.secondary',
-                  borderBottom: activeTab === tab.id ? '3px solid' : '3px solid transparent',
-                  borderColor: '#002e5b',
+                  borderBottom: activeTab === tab.id ? '3px solid #002e5b' : 'none',
                   borderRadius: 0,
-                  px: 3,
-                  transition: 'all 0.3s ease',
-                  fontSize: '0.9rem',
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 46, 91, 0.05)',
-                    color: '#002e5b'
-                  }
+                  px: 2.5,
+                  fontSize: '0.95rem',
+                  '&:hover': { backgroundColor: 'rgba(0,46,91,0.05)', color: '#002e5b' }
                 }}
               >
                 {tab.label}
