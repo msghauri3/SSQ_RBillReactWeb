@@ -11,6 +11,7 @@ import AboutPage from './components/pages/AboutPage';
 import ServicesPage from './components/pages/ServicesPage';
 import PortfolioPage from './components/pages/PortfolioPage';
 import ContactPage from './components/pages/ContactPage';
+import BillingComponent from './components/BillingComponent';
 
 const App = () => {
   return (
@@ -20,13 +21,14 @@ const App = () => {
           {`@keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }`}
         </style>
         
+        
         <div id="back-to-top-anchor" />
         
         <TopBar />
         <LinksBar />
         
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<BillingComponent />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />

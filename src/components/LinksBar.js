@@ -9,9 +9,9 @@ const LinksBar = () => {
   const tabs = [
     { id: 'home', label: 'Home', path: '/' },
     { id: 'about', label: 'About', path: '/about' },
-    { id: 'services', label: 'Services', path: '/services' },
-    { id: 'portfolio', label: 'Portfolio', path: '/portfolio' },
-    { id: 'contact', label: 'Contact', path: '/contact' }
+    { id: 'projects', label: 'Projects', path: '/projects' },
+    { id: 'contact', label: 'Contact', path: '/contact' },
+    { id: 'netmetering', label: 'Net Metering', path: '/netmetering' }
   ];
 
   // Update activeTab when location changes
