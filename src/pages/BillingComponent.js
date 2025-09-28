@@ -183,9 +183,10 @@ const BillingComponent = () => {
 
   return (
     
-      <Box sx={{ backgroundColor: "#002e5b", py: 6 }}>
- <Container maxWidth="md" sx={{ py: 4}}>
-      <Paper elevation={3} sx={{ p: 4 }}>
+      <Box sx={{ backgroundColor: "#002e5b", pt: 17, pb: 6 }}>
+  <Container maxWidth="md" sx={{ py: 4 }}>
+
+      <Paper elevation={3} sx={{backgroundColor: "#e6f0fa", p: 4 }}>
 
         <Typography
           variant="h4"
@@ -234,7 +235,7 @@ const BillingComponent = () => {
                 onClick={() => handleBillingTypeChange("electricity")}
                 sx={{
                   flex: 1,
-                  backgroundColor: billingData.billingType === "electricity" ? "#002e5b" : "transparent",
+                  backgroundColor: billingData.billingType === "electricity" ? "#002e5b" : "white",
                   color: billingData.billingType === "electricity" ? "#fff" : "#002e5b",
                   "&:hover": {
                     backgroundColor: billingData.billingType === "electricity" ? "#00498a" : "rgba(0,46,91,0.1)",
@@ -249,7 +250,7 @@ const BillingComponent = () => {
                 onClick={() => handleBillingTypeChange("maintenance")}
                 sx={{
                   flex: 1,
-                  backgroundColor: billingData.billingType === "maintenance" ? "#002e5b" : "transparent",
+                  backgroundColor: billingData.billingType === "maintenance" ? "#002e5b" : "white",
                   color: billingData.billingType === "maintenance" ? "#fff" : "#002e5b",
                   "&:hover": {
                     backgroundColor: billingData.billingType === "maintenance" ? "#00498a" : "rgba(0,46,91,0.1)",
@@ -265,7 +266,7 @@ const BillingComponent = () => {
           {/* BTNo Input */}
           <Grid item xs={12} sx={{ mb: 3 }}>
             <TextField
-              sx={fieldStyles}
+              sx={{fieldStyles,backgroundColor: "white"}}
               label="BTNo"
               name="btNo"
               value={billingData.btNo}
@@ -277,7 +278,7 @@ const BillingComponent = () => {
 
           {/* Project Selection */}
           <Grid item xs={12} sx={{ mb: 3 }}>
-            <FormControl fullWidth sx={selectStyles}>
+            <FormControl fullWidth sx={{fieldStyles,backgroundColor: "white"}}>
               <InputLabel>Project</InputLabel>
               <Select
                 name="project"
@@ -319,7 +320,8 @@ const BillingComponent = () => {
                 sx={{
                   borderColor: '#002e5b',
                   color: '#002e5b',
-                  height: '50px'
+                  height: '50px',
+                  backgroundColor: "white"
                 }}
               >
                 Reset

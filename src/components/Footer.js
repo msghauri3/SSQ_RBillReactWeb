@@ -15,7 +15,7 @@ const Footer = () => {
           <FaInstagram style={styles.icon} />
         </a>
       </div>
-      <p style={styles.text}>© 2022, All rights reserved.</p>
+      <p style={styles.text}>© 2025, All rights reserved.</p>
     </footer>
   );
 };
@@ -25,20 +25,25 @@ const styles = {
     backgroundColor: "#222",
     color: "#fff",
     textAlign: "center",
-    padding: "20px 0",
-    marginTop: "auto"
+    padding: "60px 0",  // 👈 height barha di (20px → 30px)
+    // position: "fixed",  // 👈 hamesha fix bottom pe
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: "100%",
+    zIndex: 1000,
   },
   icons: {
-    marginBottom: "10px",
+    marginBottom: "12px",
   },
   icon: {
-    margin: "0 10px",
-    fontSize: "24px",
+    margin: "0 12px",
+    fontSize: "26px", // 👈 icons bhi thore barhe kar diye
     color: "#fff",
     cursor: "pointer",
   },
   text: {
-    fontSize: "14px",
+    fontSize: "15px",
     margin: 0,
   },
 };

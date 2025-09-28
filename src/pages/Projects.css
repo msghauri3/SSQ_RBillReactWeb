@@ -1,0 +1,151 @@
+/* Section Background */
+.portfolio {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #002e5b;
+  text-align: center; /* sab text center aligned */
+  color: #fff;
+}
+
+/* Heading Section - sirf portfolio ke andar */
+.portfolio .heading-section h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffffff !important;
+  margin-bottom: 15px;
+}
+
+.portfolio .heading-section p {
+  color: #e0e0e0;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Heading ko center force */
+.portfolio .heading-section {
+  text-align: center;
+  margin: 0 auto 30px;
+  max-width: 800px;
+}
+
+/* ✅ Portfolio Rows */
+.portfolio .photos-portfolio {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* rows ko bhi center karega */
+  justify-content: center;
+  margin-top: 40px;
+  gap: 5px;
+}
+
+/* Each row */
+.portfolio .photos-portfolio .row {
+  display: flex;
+  justify-content: center; /* sab rows center aligned */
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+/* Hexagon style */
+.portfolio .image-portfolio {
+  position: relative;
+  width: 220px;
+  height: 190px;
+  clip-path: polygon(
+    50% 0%, 100% 25%, 100% 75%, 
+    50% 100%, 0% 75%, 0% 25%
+  );
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.portfolio .image-portfolio:hover {
+  transform: translateY(-6px);
+}
+
+.portfolio .image-portfolio img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.portfolio .image-portfolio:hover img {
+  transform: scale(1.1);
+}
+
+/* Overlay */
+.portfolio .overlay-image-portfolio {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 46, 91, 0.75);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.4s ease;
+}
+
+.portfolio .image-portfolio:hover .overlay-image-portfolio {
+  opacity: 1;
+}
+
+.portfolio .info-overlay-portfolio {
+  text-align: center;
+}
+
+.portfolio .info-overlay-portfolio h4 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.portfolio .border-overlay {
+  width: 40px;
+  height: 3px;
+  background: #fff;
+  margin: 0 auto;
+}
+
+/* ✅ Responsive */
+@media (max-width: 992px) {
+  .portfolio .image-portfolio {
+    width: 180px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio .photos-portfolio .row {
+    gap: 12px;
+  }
+  .portfolio .image-portfolio {
+    width: 160px;
+    height: 140px;
+  }
+  .portfolio .heading-section h2 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio .photos-portfolio .row {
+    gap: 10px;
+  }
+  .portfolio .image-portfolio {
+    width: 140px;
+    height: 120px;
+  }
+  .portfolio .heading-section h2 {
+    font-size: 22px;
+  }
+  .portfolio .info-overlay-portfolio h4 {
+    font-size: 14px;
+  }
+}

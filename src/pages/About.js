@@ -6,11 +6,7 @@ const About = () => {
     <section id="about" className="about">
       <div className="container">
         <div className="heading-section">
-          <span>ABOUT US</span>
           <h2>ABOUT US</h2>
-          <div className="border-heading">
-            <i className="fa fa-bicycle" aria-hidden="true"></i>
-          </div>
           <p>
             Bahria Town has been shaping landscapes and lives in Pakistan since
             the company’s inception in 1996. Not just about building homes,

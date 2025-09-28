@@ -54,18 +54,18 @@
 // App.js
 import React from 'react';
 import { KeyboardArrowUp } from '@mui/icons-material';
-import { Box, Fab } from '@mui/material';
+import { Fab } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { scroller, Element } from 'react-scroll';
 import LinksBar from './components/LinksBar';
 import Footer from './components/Footer';
 import ScrollTop from './components/ScrollTop';
 
-import BillingComponent from './components/BillingComponent';
-import About from './components/About';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import NetMetering from './components/NetMetering';
+import BillingComponent from './pages/BillingComponent';
+import About from './pages/About';
+import Projects from './pages/Projects';
+import Contact from './pages/Contact';
+import NetMetering from './pages/NetMetering';
 
 // MainPage renders all sections and auto-scrolls if location.state.scrollTo is present
 const MainPage = () => {
@@ -112,8 +112,8 @@ const App = () => {
              sx={{ backgroundColor: '#002e5b', '&:hover': { backgroundColor: '#00498a' } }}>
              <KeyboardArrowUp />
            </Fab>
-         </ScrollTop>
-      {/* <ScrollTop /> */}
+      </ScrollTop>
+      
     </Router>
   );
 };

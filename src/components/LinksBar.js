@@ -18,7 +18,6 @@ const LinksBar = () => {
   ];
 
   React.useEffect(() => {
-    // highlight netmetering when on that route, otherwise keep current active or default billing
     if (location.pathname === '/netmetering') setActiveTab('netmetering');
   }, [location.pathname]);
 
@@ -29,26 +28,36 @@ const LinksBar = () => {
       return;
     }
 
-    // scroll type
     if (location.pathname === '/') {
       scroller.scrollTo(tab.id, { duration: 450, smooth: true, offset: -80 });
       setActiveTab(tab.id);
     } else {
-      // navigate to root and pass desired section via state
       navigate('/', { state: { scrollTo: tab.id } });
       setActiveTab(tab.id);
     }
   };
 
   return (
-    <Paper elevation={2} sx={{ position: 'sticky', top: 0, zIndex: 100, borderRadius: 0 }}>
+    <Paper
+      elevation={3}
+      sx={{
+        position: 'fixed',   // 👈 fixed instead of sticky
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        borderRadius: 0
+      }}
+    >
       <Container maxWidth="lg">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 1.5 }}>
+          {/* Logo left me */}
           <Box>
             <img src="/logo.png" alt="logo" style={{ width: 70, objectFit: 'fill' }} />
           </Box>
 
-          <Box sx={{ display: 'flex' }}>
+          {/* Links center me */}
+          <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
             {tabs.map(tab => (
               <Button
                 key={tab.id}
