@@ -3,10 +3,10 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 export const generatePDF = (billingData, projects) => {
-  if (!billingData.billingType || !billingData.btNo || !billingData.project) {
-    alert('Please fill all required fields!');
-    return;
-  }
+  // if (!billingData.billingType || !billingData.btNo || !billingData.sector) {
+  //   alert('Please fill all required fields!');
+  //   return;
+  // }
 
 //   const doc = new jsPDF();
 //   doc.setFontSize(16);
