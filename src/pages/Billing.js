@@ -26,7 +26,7 @@ const BillingComponent = () => {
   const [loading, setLoading] = useState(false);
 
   const projects = [
-    { value: "B", label: "B" },
+    { value: "Mohlanwal", label: "Mohlanwal" },
     { value: "orchards", label: "Orchard / EMC / NASHEMAN / ROSE GARDEN" },
   ];
 
@@ -55,7 +55,7 @@ const handleGenerate = async () => {
 
   try {
     // ✅ Use form values
-    const apiUrl = `https://localhost:7108/api/WebBilling/GetBill?btNo=${billingData.btNo}&sector=${billingData.project}&billingType=${billingData.billingType}`;
+    const apiUrl = `https://localhost:7108/api/ElectricityBill/GetBillDetails?btNo=${billingData.btNo}&project=${billingData.project}&billingType=${billingData.billingType}`;
     console.log("🌐 API URL:", apiUrl); // <--- Debug in console
 
     const response = await fetch(apiUrl);
