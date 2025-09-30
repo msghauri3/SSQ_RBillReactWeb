@@ -14,7 +14,9 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import { generatePDF } from "../reports/ElectricityBill";
+import { generateElectricityPDF } from "../reports/ElectricityBill";
+import { generateMaintenancePDF } from "../reports/MaintenanceBill";
+
 
 const BillingComponent = () => {
   const [billingData, setBillingData] = useState({
@@ -27,7 +29,7 @@ const BillingComponent = () => {
 
   const projects = [
     { value: "Mohlanwal", label: "Mohlanwal" },
-    { value: "orchards", label: "Orchard / EMC / NASHEMAN / ROSE GARDEN" },
+    { value: "Orchards", label: "Orchard / EMC / NASHEMAN / ROSE GARDEN" },
   ];
 
   const handleInputChange = (e) => {
@@ -54,9 +56,9 @@ const handleGenerate = async () => {
   setError("");
 
   try {
-    // ✅ Use form values
-    const apiUrl = `https://localhost:7108/api/ElectricityBill/GetBillDetails?btNo=${billingData.btNo}&project=${billingData.project}&billingType=${billingData.billingType}`;
-    console.log("🌐 API URL:", apiUrl); // <--- Debug in console
+    const apiUrl = `https://localhost:7108/api/${billingData.billingType === "electricity" ? "ElectricityBill" : "MaintenanceBill"}/GetBillDetails?btNo=${billingData.btNo}&project=${billingData.project}&billingType=${billingData.billingType}`;
+
+    console.log("🌐 API URL:", apiUrl);
 
     const response = await fetch(apiUrl);
 
@@ -74,7 +76,12 @@ const handleGenerate = async () => {
     if (!data || data.length === 0) {
       setError("No bill found for this BTNo and Project.");
     } else {
-      generatePDF(data, projects);
+      // ✅ Alag report call karo
+      if (billingData.billingType === "electricity") {
+        generateElectricityPDF(data, projects);
+      } else {
+        generateMaintenancePDF(data, projects);
+      }
     }
   } catch (err) {
     console.error("❌ Fetch Error:", err);
@@ -83,6 +90,7 @@ const handleGenerate = async () => {
     setLoading(false);
   }
 };
+
 
 
   const resetForm = () => {

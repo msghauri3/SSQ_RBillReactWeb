@@ -2,7 +2,7 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-export const generateElectricityPDF = (billingData, projects) => {
+export const generateMaintenancePDF = (billingData, projects) => {
   const doc = new jsPDF("p", "mm", "a4");
 
   doc.addImage("Bahria_Town_Logo.png", "PNG", 16, 15, 16, 18);
@@ -15,7 +15,7 @@ export const generateElectricityPDF = (billingData, projects) => {
            { content: "", rowSpan: 2, styles: { valign: "middle" } },
            {
              content:
-               "BAHRIA TOWN PVT LTD - ELECTRICITY BILL\nYOUR LIFE STYLE DESTINATION",
+               "BAHRIA TOWN PVT LTD - MAINTENANCE BILL\nYOUR LIFE STYLE DESTINATION",
              colSpan: 2,
              styles: {
                lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0.1 },
