@@ -1,51 +1,38 @@
 import React from "react";
-import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { Box, Stack, IconButton, Typography } from "@mui/material";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 const Footer = () => {
   return (
-    <footer style={styles.footer}>
-      <div style={styles.icons}>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-          <FaFacebook style={styles.icon} />
-        </a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <FaTwitter style={styles.icon} />
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-          <FaInstagram style={styles.icon} />
-        </a>
-      </div>
-      <p style={styles.text}>© 2025, All rights reserved.</p>
-    </footer>
+    <Box
+      component="footer"
+      sx={{
+        backgroundColor: "#222",
+        color: "white",
+        textAlign: "center",
+        py: 6,            
+        mt: "auto",
+        minHeight: "140px" 
+      }}
+    >
+      <Stack direction="row" justifyContent="center" spacing={3}>
+        <IconButton color="inherit" href="https://facebook.com" target="_blank">
+          <FacebookIcon />
+        </IconButton>
+        <IconButton color="inherit" href="https://twitter.com" target="_blank">
+          <TwitterIcon />
+        </IconButton>
+        <IconButton color="inherit" href="https://instagram.com" target="_blank">
+          <InstagramIcon />
+        </IconButton>
+      </Stack>
+      <Typography variant="body2" sx={{ mt: 2 }}>
+        © 2025, All rights reserved.
+      </Typography>
+    </Box>
   );
-};
-
-const styles = {
-  footer: {
-    backgroundColor: "#222",
-    color: "#fff",
-    textAlign: "center",
-    padding: "60px 0",  // 👈 height barha di (20px → 30px)
-    // position: "fixed",  // 👈 hamesha fix bottom pe
-    bottom: 0,
-    left: 0,
-    right: 0,
-    width: "100%",
-    zIndex: 1000,
-  },
-  icons: {
-    marginBottom: "12px",
-  },
-  icon: {
-    margin: "0 12px",
-    fontSize: "26px", // 👈 icons bhi thore barhe kar diye
-    color: "#fff",
-    cursor: "pointer",
-  },
-  text: {
-    fontSize: "15px",
-    margin: 0,
-  },
 };
 
 export default Footer;
