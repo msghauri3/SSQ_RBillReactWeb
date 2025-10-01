@@ -8,19 +8,6 @@ export const generatePDF = (billingData, projects) => {
   //   return;
   // }
 
-//   const doc = new jsPDF();
-//   doc.setFontSize(16);
-//   doc.text('BAHRIA TOWN - BILL RECEIPT', 14, 20);
-
-//   autoTable(doc, {
-//     startY: 30,
-//     head: [['Field', 'Value']],
-//     body: [
-//       ['BT No', billingData.btNo],
-//       ['Project', projects.find(p => p.value === billingData.project)?.label],
-//       ['Billing Type', billingData.billingType === 'electricity' ? 'Electricity' : 'Maintenance'],
-//     ]
-//   });
 
 const doc = new jsPDF("p", "mm", "a4");
 
@@ -33,6 +20,8 @@ const doc = new jsPDF("p", "mm", "a4");
     // });
     // const imgData = canvas.toDataURL("image/png");
     // doc.addImage(imgData, "PNG", 70, 50, 70, 20);
+
+    // Images
     doc.addImage("Bahria_Town_Logo.png", "PNG", 16, 15, 16, 18);
 
     //Header
@@ -42,43 +31,19 @@ const doc = new jsPDF("p", "mm", "a4");
         [
           { content: "", rowSpan: 2, styles: { valign: "middle" } },
           {
-            content:
-              "BAHRIA TOWN PVT LTD - ELECTRICITY BILL\nYOUR LIFE STYLE DESTINATION",
+            content: "BAHRIA TOWN PVT LTD - ELECTRICITY BILL\nYOUR LIFE STYLE DESTINATION",
             colSpan: 2,
-            styles: {
-              lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0.1 },
-              fontStyle: "bold",
-              font: "helvetica",
-              fontSize: 13,
-              minCellHeight: 7,
-              cellPadding: { top: 2, bottom: 1 },
-            },
+            styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0.1 }, fontStyle: "bold", font: "helvetica", fontSize: 13, minCellHeight: 7, cellPadding: { top: 2, bottom: 1 } },
           },
         ],
         [
           {
             content: "   BTL-Lahore",
-            // colSpan: 3,
-            styles: {
-              lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 },
-              fontSize: 10,
-              minCellHeight: 4,
-              // fontStyle: 'bold',
-              cellPadding: { top: 0.5, bottom: 0.5 },
-              halign: "left",
-            },
+            styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 }, fontSize: 10, minCellHeight: 4, cellPadding: { top: 0.5, bottom: 0.5 }, halign: "left" },
           },
           {
             content: "GST NO 07-02-8400-061-28  ",
-            // colSpan: 3,
-            styles: {
-              lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0 },
-              fontSize: 10,
-              minCellHeight: 4,
-              // fontStyle: 'bold',
-              cellPadding: { top: 0.5, bottom: 0.5 },
-              halign: "right",
-            },
+            styles: { lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0 }, fontSize: 10, minCellHeight: 4, cellPadding: { top: 0.5, bottom: 0.5 }, halign: "right" },
           },
         ],
       ],
