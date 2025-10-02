@@ -7,7 +7,7 @@ const NetMeteringPage = () => {
     { title: "Feasibility Assessment Form (Download)", file: "/docs/Feasibility Assessment Form.pdf" },
     { title:"Specimen for Unerdertaking(Download)", file: "/docs/Undertaking (specimen).pdf" },
     { title: "Format for Photos(to be attached)", file: "/docs/Format for Photos Attachment.pdf" },
-    { title: "Licensed Solar Installers/Venders(Link)", file: "https://www.ppib.gov.pk/", external: true },
+    { title: "Licensed Solar Installers/Vendors(Link)", file: "https://www.ppib.gov.pk/", external: true },
     { title: "Blacklisted Installers/Vendors", noLink: true },
   ];
 

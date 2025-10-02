@@ -13,6 +13,7 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import NetMetering from './pages/NetMetering';
+import Subscribe from './pages/Subscribe';
 
 // Auto-scroll wrapper for hash or state.scrollTo
 const ScrollToSection = ({ children }) => {
@@ -38,6 +39,7 @@ const MainPage = () => (
     <Element name="about"><About /></Element>
     <Element name="projects"><Projects /></Element>
     <Element name="contact"><Contact /></Element>
+    <Element name="subscribe"><Subscribe /></Element>  
   </>
 );
 
