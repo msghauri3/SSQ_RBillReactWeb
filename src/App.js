@@ -4,10 +4,10 @@ import { KeyboardArrowUp } from '@mui/icons-material';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { scroller, Element } from 'react-scroll';
 
+import TopBar from './components/TopBar';
 import LinksBar from './components/LinksBar';
 import Footer from './components/Footer';
 import ScrollTop from './components/ScrollTop';
-
 import Billing from './pages/Billing';
 import About from './pages/About';
 import Projects from './pages/Projects';
@@ -46,6 +46,7 @@ const MainPage = () => (
 const App = () => (
   <Router>
     <div id="back-to-top-anchor" />
+    <TopBar />
     <LinksBar />
     
     <ScrollToSection>
