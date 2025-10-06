@@ -135,6 +135,169 @@ export const generateElectricityPDF = (billingData, projects) => {
     },
   });
 
+  autoTable(doc, {
+  startY: doc.lastAutoTable.finalY,
+  head: [],
+  body: [
+    [
+      { content: 'Bar Code No', styles: {} },
+      { content: 'Tariff', styles: {} },
+      { content: 'Conn Date', styles: {} },
+      { content: 'Bank Account No (BTL Branch)', colSpan :2, styles: {} },
+      { content: 'Conn Date', styles: {} }
+    ],
+    [
+      { content: 'BTL-10014', styles: {} },
+      { content: 'Residential', styles: {} },
+      { content: '19-Feb-2010', styles: {} },
+      { content: 'Bank Details', colSpan : 2, rowSpan: 3, styles: {} },
+      { content: 'Electricity Details', rowSpan: 3,  styles: {} }
+    ],
+    [
+      { content: 'GRID', styles: {} },
+      { content: 'Meter Type', styles: {} },
+      { content: 'Category', styles: {} }
+    ],
+    [
+      { content: 'BTL FEEDER - 1', styles: {} },
+      { content: '3-Phase', styles: {} },
+      { content: 'Residential', styles: {} }
+    ]
+  ],
+  theme: 'grid',
+  bodyStyles: {
+    fillColor: false,
+    textColor: [0, 0, 0],
+    lineColor: [0, 0, 0],
+    halign: 'center',
+    valign: 'middle'
+  },
+  columnStyles: {
+    0: { cellWidth: 20 },
+    1: { cellWidth: 20 },
+    2: { cellWidth: 20 },
+    5: { cellWidth: 65 }
+  },
+  didParseCell: function (data) {
+    if (data.section === "body") {
+      if (data.row.index === 0) {
+        data.cell.styles.minCellHeight = 3;
+        data.cell.styles.fontSize = 8;
+        data.cell.styles.cellPadding = 0;
+        data.cell.styles.valign = "middle";
+        data.cell.styles.fillColor = "black";
+        data.cell.styles.textColor = "white";
+      }
+      if (data.row.index === 1 && data.column.index >= 0 && data.column.index <= 2) {
+        data.cell.styles.minCellHeight = 8;
+        data.cell.styles.fontSize = 8;
+        data.cell.styles.cellPadding = { top: 1 };
+        data.cell.styles.valign = "top";
+      }
+      if (data.row.index === 2) {
+        data.cell.styles.minCellHeight = 3;
+        data.cell.styles.fontSize = 8;
+        data.cell.styles.cellPadding = 0;
+        data.cell.styles.valign = "middle";
+        data.cell.styles.fontStyle= "bold";
+      }
+      if (data.row.index === 3) {
+        data.cell.styles.minCellHeight = 20;
+        data.cell.styles.fontSize = 8;
+        data.cell.styles.cellPadding = { top: 1};
+        data.cell.styles.valign = "top";
+      }
+    }
+  },
+  didDrawCell: function (data) {
+    // ✅ ab yahaan se border draw hoga
+    if (data.row.index === 2) {
+      setCellBorders(data, { top: false, bottom: false, left: true, right: true });
+    }
+  }
+});
+
+
+  function setCellBorders(data, options = {}) {
+    const { doc, cell } = data;
+    const x = cell.x;
+    const y = cell.y;
+    const w = cell.width;
+    const h = cell.height;
+
+    const {
+      top = true,
+      right = true,
+      bottom = true,
+      left = true,
+      color = [0, 0, 0],
+      width = 0.2,
+    } = options;
+
+    doc.setDrawColor(...color);
+    doc.setLineWidth(width);
+
+    if (top) doc.line(x, y, x + w, y);
+    if (right) doc.line(x + w, y, x + w, y + h);
+    if (bottom) doc.line(x, y + h, x + w, y + h);
+    if (left) doc.line(x, y, x, y + h);
+  }
+
+
+
+  // //Dummy
+  // autoTable(doc, {
+  //   startY: doc.lastAutoTable.finalY,
+  //   head: [],
+  //   body: [
+  //     [
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} },
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} },
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} }
+  //     ],
+  //     [
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} },
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} },
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} }
+  //     ],
+  //     [
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} },
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} },
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} }
+  //     ],
+  //     [
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} },
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} },
+  //       { content: 'Route ID - UD', styles: {} },
+  //       { content: 'TARIFF', styles: {} }
+  //     ]
+  //   ],
+  //   theme: 'grid',
+  //   bodyStyles: {
+  //     fillColor: false,
+  //     textColor: [0, 0, 0],
+  //     lineColor: [0, 0, 0],
+  //     halign: 'center',
+  //     valign: 'middle'
+  //   },
+  //   columnStyles: {
+  //     // 0: { cellWidth: 20 },
+  //     // 1: { cellWidth: 20 }
+  //   }
+
+  // });
+
   // // ✅ Customer Details
   // autoTable(doc, {
   //   startY: 26.2,
