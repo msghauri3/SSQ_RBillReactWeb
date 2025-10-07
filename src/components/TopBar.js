@@ -3,15 +3,23 @@ import React from "react";
 const TopBar = () => {
   const styles = {
     topbar: {
-      backgroundColor: "#002b5b", // dark blue
+      backgroundColor: "#002b5b",
       color: "white",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: "6px 40px",
+      height: "40px",
+      padding: "0 40px",
       fontSize: "14px",
       fontWeight: "500",
-    },
+      position: "sticky",   // ✅ sticky instead of fixed
+      top: 0,
+      left: 0,
+      width: "100%",
+      zIndex: 1000,
+      boxSizing: "border-box",
+    }
+    ,
     left: {
       letterSpacing: "0.5px",
     },
@@ -29,7 +37,7 @@ const TopBar = () => {
   return (
     <div style={styles.topbar}>
       <div style={styles.left}>
-        <span>coditium.com</span>
+        <span>Bahria Town</span>
       </div>
       <div style={styles.right}>
         <a

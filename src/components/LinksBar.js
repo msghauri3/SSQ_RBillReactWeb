@@ -41,12 +41,13 @@ const LinksBar = () => {
     <Paper
       elevation={3}
       sx={{
-        position: 'fixed',   // 👈 fixed instead of sticky
-        top: 0,
+        position: 'fixed',
+        top: 40,           // ✅ matches TopBar height
         left: 0,
         right: 0,
-        zIndex: 1000,
-        borderRadius: 0
+        zIndex: 1100,      // ✅ below TopBar
+        borderRadius: 0,
+        transition: 'top 0.2s ease', // optional smoothness
       }}
     >
       <Container maxWidth="lg">
