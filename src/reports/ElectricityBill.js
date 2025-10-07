@@ -135,113 +135,317 @@ export const generateElectricityPDF = (billingData, projects) => {
     },
   });
 
+  
+  //Body-1
   autoTable(doc, {
-  startY: doc.lastAutoTable.finalY,
-  head: [],
-  body: [
-    [
-      { content: 'Bar Code No', styles: {} },
-      { content: 'Tariff', styles: {} },
-      { content: 'Conn Date', styles: {} },
-      { content: 'Bank Account No (BTL Branch)', colSpan :2, styles: {} },
-      { content: 'Conn Date', styles: {} }
+    startY: doc.lastAutoTable.finalY,
+    head: [],
+    body: [
+      [
+        { content: 'Bar Code No', styles: {} },
+        { content: 'Tariff', styles: {} },
+        { content: 'Conn Date', styles: {} },
+        { content: 'Bank Account No (BTL Branch)', colSpan: 2, styles: {} },
+        { content: '  Electricity', styles: { halign: "left" } }
+      ],
+      [
+        { content: 'BTL-10014', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 } } },
+        { content: 'Residential', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } } },
+        { content: '19-Feb-2010', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } } },
+        // { content: 'UBL Bank(PK60 UNIL0109000201226209)\nFaysal Bank(3130301900222504)\nFacilitation Center Bahria-Alfalah Plaza (only Cash)\nFacilitation Center Bahria Orchard (only Cash)\nBill Collection Timing From\n9:00 to 17:00 (Only Working Days)', colSpan: 2, rowSpan: 3, styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0 }, cellPadding: 0, fontSize: 7 } },
+        { content: 'Bank Details', colSpan: 2, rowSpan: 3, styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0 }, cellPadding: 0, fontSize: 10 } },
+        { content: 'Electricity Details', rowSpan: 9, styles: {} },
+      ],
+      [
+        { content: 'GRID', styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 } } },
+        { content: 'Meter Type', styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
+        { content: 'Category', styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } }
+      ],
+      [
+        { content: 'BTL FEEDER - 1', styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 } } },
+        { content: '3-Phase', styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 } } },
+        { content: 'Residential', styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 } } }
+      ],
+      [
+        { content: 'METER No', styles: {} },
+        { content: 'PREVIOUS', styles: {} },
+        { content: 'PRESENT', styles: {} },
+        { content: 'UNITS', styles: {} },
+        { content: 'MDI Reading', styles: {} }
+      ],
+      [
+        { content: '66622020307', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0.1 } } },
+        { content: '13566', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } } },
+        { content: '14375', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } } },
+        { content: '809', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } } },
+        { content: '', styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0 } } }
+      ],
+      [
+        { content: 'Units', styles: {} },
+        { content: 'Rate', styles: {} },
+        { content: 'Amount', styles: {} },
+        { content: 'Deferred Amount', colSpan: 2, styles: {} }
+      ],
+      [
+        { content: '809', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0.1 } } },
+        { content: '51.5', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } } },
+        { content: '41664', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } } },
+        { content: '0', colSpan: 2, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } } }
+      ],
+      [
+        { content: 'Urdu Content Image', colSpan: 5, styles: {} }
+      ],
+      [
+        { content: 'Complaint Office (Mohlanwal) 042-35341646\nComplaint Office (Orchard)     042-35470996   042-35470997\nComplaint Office (Nasheman) 042-35935515', colSpan: 5, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0.1 }, cellPadding: 0.5, fontSize: 8, fontStyle: "bold", halign: "left" } }
+      ]
     ],
-    [
-      { content: 'BTL-10014', styles: {} },
-      { content: 'Residential', styles: {} },
-      { content: '19-Feb-2010', styles: {} },
-      { content: 'Bank Details', colSpan : 2, rowSpan: 3, styles: {} },
-      { content: 'Electricity Details', rowSpan: 3,  styles: {} }
-    ],
-    [
-      { content: 'GRID', styles: {} },
-      { content: 'Meter Type', styles: {} },
-      { content: 'Category', styles: {} }
-    ],
-    [
-      { content: 'BTL FEEDER - 1', styles: {} },
-      { content: '3-Phase', styles: {} },
-      { content: 'Residential', styles: {} }
-    ]
-  ],
-  theme: 'grid',
-  bodyStyles: {
-    fillColor: false,
-    textColor: [0, 0, 0],
-    lineColor: [0, 0, 0],
-    halign: 'center',
-    valign: 'middle'
-  },
-  columnStyles: {
-    0: { cellWidth: 20 },
-    1: { cellWidth: 20 },
-    2: { cellWidth: 20 },
-    5: { cellWidth: 65 }
-  },
-  didParseCell: function (data) {
-    if (data.section === "body") {
-      if (data.row.index === 0) {
-        data.cell.styles.minCellHeight = 3;
-        data.cell.styles.fontSize = 8;
-        data.cell.styles.cellPadding = 0;
-        data.cell.styles.valign = "middle";
-        data.cell.styles.fillColor = "black";
-        data.cell.styles.textColor = "white";
+    theme: 'grid',
+    bodyStyles: {
+      fillColor: false,
+      textColor: [0, 0, 0],
+      lineColor: [0, 0, 0],
+      halign: 'center',
+      valign: 'middle'
+    },
+    columnStyles: {
+      0: { cellWidth: 20 },
+      1: { cellWidth: 20 },
+      2: { cellWidth: 20 },
+      5: { cellWidth: 65 }
+    },
+    // didParseCell: function (data) {
+    //   if (data.section === "body") {
+    //     if (data.row.index === 0 || data.row.index === 4 || data.row.index === 6) {
+    //       data.cell.styles.minCellHeight = 3;
+    //       data.cell.styles.fontSize = 8;
+    //       data.cell.styles.cellPadding = 0;
+    //       data.cell.styles.valign = "middle";
+    //       data.cell.styles.fillColor = "black";
+    //       data.cell.styles.textColor = "white";
+    //     }
+    //     if ((data.row.index === 1 && data.column.index >= 0 && data.column.index <= 2) || data.row.index === 5 || data.row.index === 7) {
+    //       data.cell.styles.minCellHeight = 8;
+    //       data.cell.styles.fontSize = 8;
+    //       data.cell.styles.cellPadding = { top: 1 };
+    //       data.cell.styles.valign = "top";
+    //     }
+    //     if (data.row.index === 2) {
+    //       data.cell.styles.minCellHeight = 3;
+    //       data.cell.styles.fontSize = 8;
+    //       data.cell.styles.cellPadding = 0;
+    //       data.cell.styles.valign = "middle";
+    //       data.cell.styles.fontStyle = "bold";
+    //     }
+    //     if (data.row.index === 3) {
+    //       data.cell.styles.minCellHeight = 15;
+    //       data.cell.styles.fontSize = 8;
+    //       data.cell.styles.cellPadding = 0;
+    //       data.cell.styles.valign = "top";
+    //     }
+    //     if (data.row.index === 8) {
+    //       data.cell.styles.minCellHeight = 30;
+    //     }
+    //   }
+    // }
+    didParseCell: function (data) {
+      if (data.section !== "body") return;
+
+      const { row, column, cell } = data;
+      const r = row.index;
+      const c = column.index;
+
+      // Helper to merge style properties
+      const setCell = (styles) => Object.assign(cell.styles, styles);
+
+      // Header-style rows (black background)
+      if (r === 0 || r === 4 || r === 6) {
+        setCell({
+          minCellHeight: 3,
+          fontSize: 8,
+          cellPadding: 0,
+          valign: "middle",
+          fillColor: "black",
+          textColor: "white"
+        });
       }
-      if (data.row.index === 1 && data.column.index >= 0 && data.column.index <= 2) {
-        data.cell.styles.minCellHeight = 8;
-        data.cell.styles.fontSize = 8;
-        data.cell.styles.cellPadding = { top: 1 };
-        data.cell.styles.valign = "top";
+
+      // Top-aligned rows (multi-line or numeric data)
+      if ((r === 1 && c <= 2) || r === 5 || r === 7) {
+        setCell({
+          minCellHeight: 8,
+          fontSize: 8,
+          cellPadding: { top: 1 },
+          valign: "top"
+        });
       }
-      if (data.row.index === 2) {
-        data.cell.styles.minCellHeight = 3;
-        data.cell.styles.fontSize = 8;
-        data.cell.styles.cellPadding = 0;
-        data.cell.styles.valign = "middle";
-        data.cell.styles.fontStyle= "bold";
+
+      // Bold row
+      if (r === 2) {
+        setCell({
+          minCellHeight: 3,
+          fontSize: 8,
+          cellPadding: 0,
+          valign: "middle",
+          fontStyle: "bold"
+        });
       }
-      if (data.row.index === 3) {
-        data.cell.styles.minCellHeight = 20;
-        data.cell.styles.fontSize = 8;
-        data.cell.styles.cellPadding = { top: 1};
-        data.cell.styles.valign = "top";
+
+      // Tall row
+      if (r === 3) {
+        setCell({
+          minCellHeight: 15,
+          fontSize: 8,
+          cellPadding: 0,
+          valign: "top"
+        });
+      }
+
+      // Urdu text or image row
+      if (r === 8) {
+        setCell({ minCellHeight: 30 });
       }
     }
-  },
-  didDrawCell: function (data) {
-    // ✅ ab yahaan se border draw hoga
-    if (data.row.index === 2) {
-      setCellBorders(data, { top: false, bottom: false, left: true, right: true });
+
+  });
+
+  //Please Visit for Duplicate Bill:
+  autoTable(doc, {
+    startY: doc.lastAutoTable.finalY,
+    head: [],
+    body: [
+      [
+        { content: '   In case of non receipt or loss of bill,duplicate bill can be', styles: {lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 }, halign: "left"} },
+        { content: 'Quries regarding electric bills dia      ', styles: {lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0 }, halign: "right"} }
+      ],
+      [
+        { content: '   obtained from Billing Offce before 5th of each month. ', styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 } , halign: "left"} },
+        { content: '042-35341623 (Ext.120-121-126 )   ', styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 }, halign: "right" , fontStyle:"bold"} }
+      ],
+      [
+        { content: 'Please Visit for Duplicate Bill: https://www.e-billingbahriatownlahore.com',colSpan:2, styles: { lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0.1 } } }
+      ]
+    ],
+    theme: 'grid',
+    bodyStyles: {
+      fillColor: false,
+      textColor: [0, 0, 0],
+      lineColor: [0, 0, 0],
+      halign: 'center',
+      valign: 'middle',
+      cellPadding:0
+    },
+    didParseCell: function (data) {
+      if (data.section !== "body") return;
+
+      const { row,
+        // column,
+        cell } = data;
+      const r = row.index;
+      // const c = column.index;
+
+      // Helper to merge style properties
+      const setCell = (styles) => Object.assign(cell.styles, styles);
+
+      if (r === 0 || r === 1){
+        setCell({
+          fontSize:8,
+           cellPadding: { top: 0.5},
+        })
+      }
+      if (r === 2){
+        setCell({
+          fillColor:[225, 225, 225],
+          fontStyle:"bold"
+        })
+      }
+        
     }
-  }
-});
+  });
 
 
-  function setCellBorders(data, options = {}) {
-    const { doc, cell } = data;
-    const x = cell.x;
-    const y = cell.y;
-    const w = cell.width;
-    const h = cell.height;
+  //Bill Amount
+  autoTable(doc, {
+    startY: doc.lastAutoTable.finalY,
+    head: [],
+    body: [
+      [
+        { content: 'History Tale',rowSpan:8, styles: {} },
+        { content: '> In case of Gazetted Holidays on due date, bill will be received by bank on next working day.',colSpan:4, styles: {} }
+      ],
+      [
+        { content: '> In case of non-payment of electric bill for one month your electricity will be disconnected',colSpan:4, styles: {} }
+      ],
+      [
+        { content: 'Connection will be restored on payment of Reconnection fee as under:-',colSpan:4, styles: {} }
+      ],
+      [
+        { content: 'Bill Amount', styles: {} },
+        { content: 'Charges', styles: {} },
+        { content: 'Bill Amount', styles: {} },
+        { content: 'Charges', styles: {} }
+      ],
+      [
+        { content: 'Up to 1,000', styles: {} },
+        { content: 'Rs.100/-', styles: {} },
+        { content: 'Between 15,001 to 50,000', styles: {} },
+        { content: 'Rs.2,500/-', styles: {} }
+      ],
+      [
+        { content: '1,001 to 5,000', styles: {} },
+        { content: 'Rs.500/-', styles: {} },
+        { content: 'Between 50,001 to 1 Lac', styles: {} },
+        { content: 'Rs.5,000/-', styles: {} }
+      ],
+      [
+        { content: '5,001 to 15,000', styles: {} },
+        { content: 'Rs.1000/-', styles: {} },
+        { content: 'Over 1 Lac', styles: {} },
+        { content: 'Rs.7,000', styles: {} }
+      ],
+      [
+        { content: '> Minimum Charges. A-1 Residential (Rs-200/-) A-2-a Commercial ( Rs-450/-) E-1-i Temp (Rs-600/- ) PEAK / OFF PEAK TIMINGS',colSpan:4, styles: {} }
+      ]
+    ],
+    theme: 'grid',
+    bodyStyles: {
+      fillColor: false,
+      textColor: [0, 0, 0],
+      lineColor: [0, 0, 0],
+      halign: 'center',
+      valign: 'middle',
+      cellPadding:0,
+      fontSize:6
+    },
+    columnStyles: {
+      0: { cellWidth: 90 }
+    },
+    // didParseCell: function (data) {
+    //   if (data.section !== "body") return;
 
-    const {
-      top = true,
-      right = true,
-      bottom = true,
-      left = true,
-      color = [0, 0, 0],
-      width = 0.2,
-    } = options;
+    //   const { row,
+    //     // column,
+    //     cell } = data;
+    //   const r = row.index;
+    //   // const c = column.index;
 
-    doc.setDrawColor(...color);
-    doc.setLineWidth(width);
+    //   // Helper to merge style properties
+    //   const setCell = (styles) => Object.assign(cell.styles, styles);
 
-    if (top) doc.line(x, y, x + w, y);
-    if (right) doc.line(x + w, y, x + w, y + h);
-    if (bottom) doc.line(x, y + h, x + w, y + h);
-    if (left) doc.line(x, y, x, y + h);
-  }
+    //   if (r === 0 || r === 1){
+    //     setCell({
+    //       fontSize:8,
+    //        cellPadding: { top: 0.5},
+    //     })
+    //   }
+    //   if (r === 2){
+    //     setCell({
+    //       fillColor:[225, 225, 225],
+    //       fontStyle:"bold"
+    //     })
+    //   }
+        
+    // }
+  });
 
 
 
