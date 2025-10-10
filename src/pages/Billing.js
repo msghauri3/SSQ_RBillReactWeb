@@ -42,6 +42,7 @@ const Billing = () => {
     setError("");
 
     try {
+      /*
       // 🔹 Dummy data for testing (Design purpose)
       const dummyData = [
         {
@@ -58,11 +59,13 @@ const Billing = () => {
       } else {
         generateMaintenancePDF(dummyData, projects);
       }
-      /*
+        */
+      // /*
+
       const apiUrl = `https://localhost:7108/api/${billingData.billingType === "electricity"
         ? "ElectricityBill"
         : "MaintenanceBill"
-        }/GetBillDetails?btNo=${billingData.btNo}&project=${billingData.project
+        }?btNo=${billingData.btNo}&project=${billingData.project
         }&billingType=${billingData.billingType}`;
 
       console.log("🌐 API URL:", apiUrl);
@@ -90,7 +93,7 @@ const Billing = () => {
           generateMaintenancePDF(data, projects);
         }
       }
-        */
+        // */
     } catch (err) {
       console.error("❌ Fetch Error:", err);
       setError("Error fetching bill data. Please try again.");
