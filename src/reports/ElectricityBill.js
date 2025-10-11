@@ -509,6 +509,8 @@ export const generateElectricityPDF = (billingData, projects) => {
     }
   });
 
+   let HistoryY = doc.lastAutoTable.finalY+3;
+
    //Bank Copy
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY,
@@ -771,6 +773,8 @@ export const generateElectricityPDF = (billingData, projects) => {
   doc.setFontSize(12);
   doc.text("Note:", 21, duplicatelinkY+48);
   doc.addImage("urdumessage3.png", "PNG", 21, duplicatelinkY+49, 70, 14);
+  doc.addImage("scissors.png", "PNG", 161, HistoryY-2.5, 3.5, 3.5);
+  doc.addImage("scissors.png", "PNG", 161, HistoryY+18.5, 3.5, 3.5);
 
    // 🔹 Watermark: DUPLICATE BILL
   doc.saveGraphicsState(); // <-- save current graphics state
@@ -781,6 +785,8 @@ export const generateElectricityPDF = (billingData, projects) => {
   doc.text("DUPLICATE BILL", 60, 100, { angle: 20 });
   doc.text("DUPLICATE BILL", 32, 210, { angle: 20 });
   doc.restoreGraphicsState(); // <-- restore so rest of PDF is normal
+
+  
 
 
 
