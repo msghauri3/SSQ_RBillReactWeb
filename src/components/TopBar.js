@@ -37,9 +37,9 @@ const TopBar = () => {
   return (
     <div style={styles.topbar}>
       <div style={styles.left}>
-        <span>Bahria Town</span>
+        <span>Bahria Town Lahore</span>
       </div>
-      <div style={styles.right}>
+      {/* <div style={styles.right}>
         <a
           href="/login"
           style={styles.link}
@@ -56,7 +56,7 @@ const TopBar = () => {
         >
           SIGN UP
         </a>
-      </div>
+      </div> */}
     </div>
   );
 };
