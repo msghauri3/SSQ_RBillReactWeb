@@ -21,7 +21,6 @@ import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
-
 const Billing = () => {
   const [billingData, setBillingData] = useState({
     billingType: "electricity",
@@ -167,19 +166,18 @@ const Billing = () => {
     width: "100%",
   };
 
-  // Generate Bill Button - Fixed loading state
+  // Generate Bill Button - Smaller width
   const primaryButtonStyle = {
     background: `linear-gradient(135deg, ${colors.primary} 0%, ${colors.primaryDark} 100%)`,
     borderRadius: '12px',
     boxShadow: '0 6px 20px rgba(99, 102, 241, 0.4)',
     fontWeight: 'bold',
     textTransform: 'none',
-    padding: '16px 32px',
+    padding: '16px 24px',
     height: '56px',
     fontSize: '16px',
     letterSpacing: '0.5px',
-    minWidth: '180px',
-    flex: 1,
+    minWidth: '160px',
     '&:hover': {
       background: `linear-gradient(135deg, ${colors.primaryDark} 0%, #4338ca 100%)`,
       boxShadow: '0 8px 25px rgba(99, 102, 241, 0.5)',
@@ -208,7 +206,7 @@ const Billing = () => {
     fontSize: '14px',
     backgroundColor: 'white',
     letterSpacing: '0.5px',
-    minWidth: '120px',
+    minWidth: '100px',
     '&:hover': {
       backgroundColor: '#f8fafc',
       border: `2px solid ${colors.text}`,
@@ -280,42 +278,7 @@ const Billing = () => {
       position: 'relative',
       overflow: 'hidden',
       py: { xs: 4, md: 6 },
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'radial-gradient(circle at 30% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.2) 0%, transparent 50%)',
-        zIndex: 1,
-      }
     }}>
-      {/* Animated background elements */}
-      <Box sx={{
-        position: 'absolute',
-        top: '10%',
-        left: '10%',
-        width: '300px',
-        height: '300px',
-        borderRadius: '50%',
-        background: 'rgba(255, 255, 255, 0.1)',
-        filter: 'blur(40px)',
-        animation: 'float 6s ease-in-out infinite',
-        zIndex: 1,
-      }} />
-      <Box sx={{
-        position: 'absolute',
-        bottom: '15%',
-        right: '10%',
-        width: '250px',
-        height: '250px',
-        borderRadius: '50%',
-        background: 'rgba(255, 255, 255, 0.08)',
-        filter: 'blur(30px)',
-        animation: 'float 8s ease-in-out infinite 1s',
-        zIndex: 1,
-      }} />
       
       <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2, px: { xs: 2, sm: 3 } }}>
         <Paper 
@@ -480,7 +443,7 @@ const Billing = () => {
             </Box>
           </Box>
 
-          {/* Action Buttons - Fixed loading state and added reset button */}
+          {/* Action Buttons - Generate Bill first, then Reset */}
           <Box sx={{ 
             display: 'flex', 
             gap: 2, 
@@ -488,15 +451,6 @@ const Billing = () => {
             alignItems: 'center',
             mt: 4
           }}>
-            <Button 
-              variant="outlined" 
-              onClick={resetForm} 
-              size="large" 
-              sx={resetButtonStyle}
-              startIcon={<RestartAltIcon />}
-            >
-              Reset
-            </Button>
             <Button 
               variant="contained" 
               onClick={handleGenerate} 
@@ -513,18 +467,19 @@ const Billing = () => {
                 "Generate Bill"
               )}
             </Button>
+            <Button 
+              variant="outlined" 
+              onClick={resetForm} 
+              size="large" 
+              sx={resetButtonStyle}
+              startIcon={<RestartAltIcon />}
+            >
+              Reset
+            </Button>
           </Box>
 
         </Paper>
       </Container>
-
-      {/* Add floating animation */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
-      `}</style>
     </Box>
   );
 };
