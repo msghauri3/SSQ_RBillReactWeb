@@ -482,7 +482,7 @@ let NoticeY = doc.lastAutoTable.finalY;
   doc.setFontSize(55);
   doc.setTextColor(165, 165, 165); // Light gray
   doc.text("Duplicate Bill", 40, 120, { angle: 20 });
-  doc.text("Duplicate  Bill", 65, 235, { angle: 20 });
+  doc.text("Duplicate  Bill", 65, 230, { angle: 20 });
   doc.restoreGraphicsState(); // <-- restore so rest of PDF is normal
 
 
