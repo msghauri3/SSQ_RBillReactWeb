@@ -1,9 +1,14 @@
-// src/reports/ElectricityBill.js
+// src/reports/MaintenanceBill.js
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import JsBarcode from "jsbarcode";
 
+
 export const generateMaintenancePDF = (billingData, projects) => {
+
+// 🔹 Step 1: Extract both objects from API response
+ // const { MaintenanceBill, CustomersMaintenance } = billingData[0];
+
   const doc = new jsPDF("p", "mm", "a4");
 
   
@@ -46,7 +51,7 @@ export const generateMaintenancePDF = (billingData, projects) => {
          ],
 
          [
-        { content: "M HAROON MIAN \nPlot No 20 \nBlock SAFARI VILLAS Sector B",colSpan:3 ,styles: { halign:"left" , fontSize:8 } },
+        { content: "customerName \nploNo \nblock   sector",colSpan:3 ,styles: { halign:"left" , fontSize:8 } },
         { content: "", rowSpan:3 ,styles: {lineWidth:{top: 0, right: 0.1, bottom: 0, left: 0.1}  } },
         ],
 
@@ -58,9 +63,9 @@ export const generateMaintenancePDF = (billingData, projects) => {
         ],
         
          [
-        { content: "September 2025",styles: {fontSize: 8  } },
-        { content: "25-Sep-2025", styles: { fontSize: 8 } },
-         { content: "08-Oct-2025", styles: { fontSize: 8 } },
+        { content: "billingMonth\nbillingYear",styles: {fontSize: 8  } },
+        { content: "issueDate", styles: { fontSize: 8 } },
+         { content: "dueDate", styles: { fontSize: 8 } },
         ],
         
        ],
@@ -125,8 +130,8 @@ export const generateMaintenancePDF = (billingData, projects) => {
         ],
 
         [
-          { content: "BTL-10014",styles: {  } },
-         { content: "500000000014", styles: {  } },
+          { content: "btNo",styles: {  } },
+         { content: "customerNo", styles: {  } },
          { content: "",colSpan:2, styles: {  } },
         ],
 
@@ -134,20 +139,20 @@ export const generateMaintenancePDF = (billingData, projects) => {
         [
          { content: "Maintenance Charges",colSpan:2 ,styles:{lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0}} },
-         { content: "2750", styles:{lineWidth:{top: 0.1, right: 0.5, bottom: 0, left: 0}} },
+         { content: "maintCharges", styles:{lineWidth:{top: 0.1, right: 0.5, bottom: 0, left: 0}} },
         ],
 
         [
           { content: "Tax on Services",colSpan:2 ,styles:{lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "200", styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}}},
+         { content: "taxAmount", styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}}},
         ],
        
 
         [
           { content: "Fine",colSpan:2 ,styles:{lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}}},
-         { content: "0", styles:  {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
+         { content: "fine", styles:  {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
         ],
        
 
@@ -161,7 +166,7 @@ export const generateMaintenancePDF = (billingData, projects) => {
         [
           { content: "Water Charges",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5} , halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "0", styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
+         { content: "waterCharges", styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
         ],
 
 
@@ -175,35 +180,35 @@ export const generateMaintenancePDF = (billingData, projects) => {
         [
          { content: "Previous Arrears(If Any)",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5} , halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "22715", styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
+         { content: "arrears", styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
         ],
 
 
         [
           { content: "G. Total",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5} , halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "25665", styles: { } },
+         { content: "billAmountInDueDate", styles: { } },
         ],
 
 
         [
           { content: "Amount Payable within due Date",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5},fontSize: 8 ,halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "25665", styles: {} },
+         { content: "billAmountInDueDate", styles: {} },
         ],
 
 
         [
           { content: "Surcharge",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}}  },
-         { content: "295", styles: {  } },
+         { content: "billSurcharge", styles: {  } },
         ],
 
 
         [
           { content: "Amount Payable after due date ",colSpan:2 ,styles:{lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "25960", styles: {  } },
+         { content: "billAmountAfterDueDate", styles: {  } },
         ],
 
 
@@ -343,7 +348,7 @@ let NoticeY = doc.lastAutoTable.finalY;
 
        
       [
-        { content: "Name : M HAROON MIAN \nAddress : 20          SAFARI VILLAS \nSector : B  ", colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
+        { content: "Name : customerName \nAddress : ploNo           block   \nSector : sector  ", colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
         { content: "Refrence Number \n 500000000014", styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
         { content: "BTL-10014", styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
       ],
@@ -354,15 +359,15 @@ let NoticeY = doc.lastAutoTable.finalY;
         { content: "BILL MONTH",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
         { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
         { content: "PAYMENT WITHIN DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "25665", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "billAmountInDueDate", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
 
      
       [
-        { content: "September 2025",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "08-Oct-2025", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "billingMonth",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
+        { content: "dueDate", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
         { content: "PAYMENT AFTER DUE DATE 2", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "25960", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "billAmountAfterDueDate", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
 
 
@@ -380,7 +385,7 @@ let NoticeY = doc.lastAutoTable.finalY;
 
        
       [
-        { content: "Name : M HAROON MIAN \nAddress : 20          SAFARI VILLAS \nSector : B  ", colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
+        { content: "Name : customerName \nAddress : ploNo           block   \nSector : sector  ", colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
         { content: "Refrence Number \n 500000000014", styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
         { content: "BTL-10014", styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
       ],
@@ -391,17 +396,16 @@ let NoticeY = doc.lastAutoTable.finalY;
         { content: "BILL MONTH",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
         { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
         { content: "PAYMENT WITHIN DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "25665", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "billAmountInDueDate", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
 
      
       [
-        { content: "September 2025",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "08-Oct-2025", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "billingMonth",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
+        { content: "dueDate", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
         { content: "PAYMENT AFTER DUE DATE 2", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "25960", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
-      ], 
-
+        { content: "billAmountAfterDueDate", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+      ],
       [
         {content: "For duplicate bill visit:https://e-billingbahriatownlahore.com",colSpan:5, styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 },fontStyle:"bold", halign:"center" }},
       ]
@@ -478,7 +482,7 @@ let NoticeY = doc.lastAutoTable.finalY;
   doc.setFontSize(55);
   doc.setTextColor(165, 165, 165); // Light gray
   doc.text("Duplicate Bill", 40, 120, { angle: 20 });
-  doc.text("Duplicate  Bill", 65, 235, { angle: 20 });
+  doc.text("Duplicate  Bill", 65, 230, { angle: 20 });
   doc.restoreGraphicsState(); // <-- restore so rest of PDF is normal
 
 
