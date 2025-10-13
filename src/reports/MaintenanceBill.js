@@ -4,10 +4,18 @@ import autoTable from 'jspdf-autotable';
 import JsBarcode from "jsbarcode";
 
 
+// ✅ Reusable date formatting function
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+  return new Date(dateString)
+    .toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })
+    .replace(/ /g, "-");
+};
+
 export const generateMaintenancePDF = (billingData, projects) => {
 
 // 🔹 Step 1: Extract both objects from API response
- // const { MaintenanceBill, CustomersMaintenance } = billingData[0];
+ const { maintenanceBills, customersMaintenance } = billingData[0];
 
   const doc = new jsPDF("p", "mm", "a4");
 
@@ -51,7 +59,7 @@ export const generateMaintenancePDF = (billingData, projects) => {
          ],
 
          [
-        { content: "customerName \nploNo \nblock   sector",colSpan:3 ,styles: { halign:"left" , fontSize:8 } },
+        { content:`${customersMaintenance.customerName} \nPloNo  ${customersMaintenance.ploNo} \nBlock  ${customersMaintenance.block}   Sector  ${customersMaintenance.sector}`,colSpan:3 ,styles: { halign:"left" , fontSize:8 } },
         { content: "", rowSpan:3 ,styles: {lineWidth:{top: 0, right: 0.1, bottom: 0, left: 0.1}  } },
         ],
 
@@ -63,9 +71,9 @@ export const generateMaintenancePDF = (billingData, projects) => {
         ],
         
          [
-        { content: "billingMonth\nbillingYear",styles: {fontSize: 8  } },
-        { content: "issueDate", styles: { fontSize: 8 } },
-         { content: "dueDate", styles: { fontSize: 8 } },
+        { content:`${maintenanceBills.billingMonth}\n${maintenanceBills.billingYear}`,styles: {fontSize: 8  } },
+        { content:formatDate(maintenanceBills.issueDate), styles: { fontSize: 8 } },
+         { content:formatDate(maintenanceBills.dueDate), styles: { fontSize: 8 } },
         ],
         
        ],
@@ -125,13 +133,13 @@ export const generateMaintenancePDF = (billingData, projects) => {
         [
          { content: "BARCODE NO.",styles: {} },
          { content: "REFRENCE NO . ", styles: {} },
-         { content: "BANK ACCOUNT NO .",colSpan:2, styles: { } },
+         { content: "BANK ACCOUNT NO . ",colSpan:2, styles: { } },
          { content: "Please Visit for Duplicate Bill visit:https://e-billingbahriatownlahore.com", rowSpan:13 ,styles: {lineWidth:{top: 0, right: 0.1, bottom: 0.1, left: 0.1} ,fontStyle:"bold", halign:"left" } },
         ],
 
         [
-          { content: "btNo",styles: {  } },
-         { content: "customerNo", styles: {  } },
+          { content:`${maintenanceBills.btNo}`,styles: {  } },
+         { content:`${maintenanceBills.customerNo}`, styles: {  } },
          { content: "",colSpan:2, styles: {  } },
         ],
 
@@ -139,20 +147,20 @@ export const generateMaintenancePDF = (billingData, projects) => {
         [
          { content: "Maintenance Charges",colSpan:2 ,styles:{lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0}} },
-         { content: "maintCharges", styles:{lineWidth:{top: 0.1, right: 0.5, bottom: 0, left: 0}} },
+         { content:`${maintenanceBills.maintCharges}`, styles:{lineWidth:{top: 0.1, right: 0.5, bottom: 0, left: 0}} },
         ],
 
         [
           { content: "Tax on Services",colSpan:2 ,styles:{lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "taxAmount", styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}}},
+         { content:`${maintenanceBills.taxAmount}`, styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}}},
         ],
        
 
         [
           { content: "Fine",colSpan:2 ,styles:{lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}}},
-         { content: "fine", styles:  {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
+         { content:`${maintenanceBills.fine}`, styles:  {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
         ],
        
 
@@ -166,7 +174,7 @@ export const generateMaintenancePDF = (billingData, projects) => {
         [
           { content: "Water Charges",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5} , halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "waterCharges", styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
+         { content:`${maintenanceBills.waterCharges}`, styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
         ],
 
 
@@ -180,35 +188,35 @@ export const generateMaintenancePDF = (billingData, projects) => {
         [
          { content: "Previous Arrears(If Any)",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5} , halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "arrears", styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
+         { content:`${maintenanceBills.arrears}`, styles: {lineWidth:{top: 0, right: 0.5, bottom: 0, left: 0}} },
         ],
 
 
         [
           { content: "G. Total",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5} , halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "billAmountInDueDate", styles: { } },
+         { content:`${maintenanceBills.billAmountInDueDate}`, styles: { } },
         ],
 
 
         [
           { content: "Amount Payable within due Date",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5},fontSize: 8 ,halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "billAmountInDueDate", styles: {} },
+         { content:`${maintenanceBills.billAmountInDueDate}`, styles: {} },
         ],
 
 
         [
           { content: "Surcharge",colSpan:2 ,styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}}  },
-         { content: "billSurcharge", styles: {  } },
+         { content:`${maintenanceBills.billSurcharge}`, styles: {  } },
         ],
 
 
         [
           { content: "Amount Payable after due date ",colSpan:2 ,styles:{lineWidth:{top: 0, right: 0, bottom: 0, left: 0.5}, halign:"left"} }, 
          { content: "Rs", styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-         { content: "billAmountAfterDueDate", styles: {  } },
+         { content:`${maintenanceBills.billAmountAfterDueDate}`, styles: {  } },
         ],
 
 
@@ -348,9 +356,9 @@ let NoticeY = doc.lastAutoTable.finalY;
 
        
       [
-        { content: "Name : customerName \nAddress : ploNo           block   \nSector : sector  ", colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
-        { content: "Refrence Number \n 500000000014", styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
-        { content: "BTL-10014", styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
+        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}            ${customersMaintenance.block} \nSector:   ${customersMaintenance.sector} `, colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
+        { content: `Refrence Number \n ${customersMaintenance.customerNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
+        { content: `${maintenanceBills.btNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
       ],
 
 
@@ -359,15 +367,15 @@ let NoticeY = doc.lastAutoTable.finalY;
         { content: "BILL MONTH",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
         { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
         { content: "PAYMENT WITHIN DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "billAmountInDueDate", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content:`${maintenanceBills.billAmountInDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
 
      
       [
-        { content: "billingMonth",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "dueDate", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
-        { content: "PAYMENT AFTER DUE DATE 2", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "billAmountAfterDueDate", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content:`${maintenanceBills.billingMonth}`,colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
+        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "PAYMENT AFTER DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
+        { content:`${maintenanceBills.billAmountAfterDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
 
 
@@ -384,10 +392,10 @@ let NoticeY = doc.lastAutoTable.finalY;
       ],
 
        
-      [
-        { content: "Name : customerName \nAddress : ploNo           block   \nSector : sector  ", colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
-        { content: "Refrence Number \n 500000000014", styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
-        { content: "BTL-10014", styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
+       [
+        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}              ${customersMaintenance.block} \nSector:   ${customersMaintenance.sector} `, colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
+        { content: `Refrence Number \n ${customersMaintenance.customerNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
+        { content: `${maintenanceBills.btNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
       ],
 
 
@@ -396,16 +404,17 @@ let NoticeY = doc.lastAutoTable.finalY;
         { content: "BILL MONTH",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
         { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
         { content: "PAYMENT WITHIN DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "billAmountInDueDate", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content:`${maintenanceBills.billAmountInDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
 
      
       [
-        { content: "billingMonth",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "dueDate", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
-        { content: "PAYMENT AFTER DUE DATE 2", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "billAmountAfterDueDate", styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content:`${maintenanceBills.billingMonth}`,colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
+        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "PAYMENT AFTER DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
+        { content:`${maintenanceBills.billAmountAfterDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
+
       [
         {content: "For duplicate bill visit:https://e-billingbahriatownlahore.com",colSpan:5, styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 },fontStyle:"bold", halign:"center" }},
       ]
