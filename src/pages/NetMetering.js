@@ -60,18 +60,25 @@ import { Container, Typography, Grid, Card, CardContent, CardActions, Button } f
 
 const NetMeteringPage = () => {
   const documents = [
-    { title: "SOPs (Download)", file: "/docs/NM-SOPs (Final Draft).pdf" },
-    { title: "Feasibility Assessment Form (Download)", file: "/docs/Feasibility Assessment Form.pdf" },
-    { title:"Specimen for Undertaking (Download)", file: "/docs/Undertaking (specimen).pdf" },
-    { title: "Format for Photos (to be attached)", file: "/docs/Format for Photos Attachment.pdf" },
-    { title: "Licensed Solar Installers/Vendors (Link)", file: "https://www.ppib.gov.pk/", external: true },
-    { title: "Blacklisted Installers/Vendors", noLink: true },
+    //{ title: "SOPs (Download)", file: "/docs/NM-SOPs (Final Draft).pdf" },
+   // { title: "Feasibility Assessment Form (Download)", file: "/docs/Feasibility Assessment Form.pdf" },
+   // { title:"Specimen for Undertaking (Download)", file: "/docs/Undertaking (specimen).pdf" },
+   // { title: "Format for Photos (to be attached)", file: "/docs/Format for Photos Attachment.pdf" },
+   // { title: "Licensed Solar Installers/Vendors (Link)", file: "https://www.ppib.gov.pk/", external: true },
+   // { title: "Blacklisted Installers/Vendors", noLink: true },
+
+     { title: "SOPs (Download)",file:"/docs/NM-SOPs (Final Draft).pdf"},
+    { title: "Feasibility Assessment\nForm (Download)",file:"/docs/Feasibility Assessment Form.pdf" },
+    { title:"Specimen for\nUndertaking (Download)",file:"/docs/Undertaking (specimen).pdf" },
+    { title: "Format for\nPhotos (to be attached)",file:"/docs/Format for Photos Attachment.pdf" },
+    { title: "Licensed Solar\nInstallers/Vendors (Link)",file:"https://www.ppib.gov.pk/", external: true },
+    { title: "Blacklisted Installers/Vendors",noLink: true },
   ];
 
   return (
     <section
       style={{
-        position: "relative",
+        position: "sticky",
         backgroundImage: `url('/Projects/Bahria Town Safari Villas.jpg')`, // 👈 your image path here
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -114,7 +121,7 @@ const NetMeteringPage = () => {
 
         <Grid container spacing={4}>
           {documents.map((doc, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Grid item xs={12} sm={6} md={6} key={index}>
               <Card
                 elevation={5}
                 sx={{
@@ -124,7 +131,7 @@ const NetMeteringPage = () => {
                   backdropFilter: "blur(5px)",
                 }}
               >
-                <CardContent sx={{ textAlign: "center" }}>
+                <CardContent sx={{ textAlign: "center",pb:1  }}>
                   <Typography
                     variant="h6"
                     sx={{
@@ -136,7 +143,7 @@ const NetMeteringPage = () => {
                     {doc.title}
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ justifyContent: "center", pb: 2 }}>
+                <CardActions sx={{ justifyContent: "center", pb:1 }}>
                   <Button
                     variant="contained"
                     color="primary"
