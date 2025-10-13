@@ -372,11 +372,11 @@ const Billing = () => {
       }
     }}>
       
-      <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2 }}>
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2 }}>
         
         {/* Header Section - Combined to remove extra space */}
         <Box sx={{ textAlign: 'center', mb: 1 }}>
-          <Typography 
+          {/* <Typography 
             variant="h3" 
             component="h1" 
             sx={{ 
@@ -406,8 +406,58 @@ const Billing = () => {
               BAHRIA TOWN
             </Box>
             Billing System
+          </Typography> */}
+          
+
+          <Typography
+            variant="h3"
+            component="h1"
+            sx={{
+              fontWeight: "bold",
+              mb: 3,
+              color: colors.text,
+              fontSize: { xs: "1.8rem", md: "2.2rem" },
+              lineHeight: 1.3,
+              textAlign: "center",
+              textShadow: "0 2px 8px rgba(0, 0, 0, 0.4)",
+            }}
+          >
+            <Box
+              component="span"
+              sx={{
+                display: "inline-block",
+                background: `linear-gradient(135deg, ${colors.primary} 0%, ${colors.primaryDark} 100%)`,
+                color: "white",
+                px: 2.5,
+                py: 0.8,
+                borderRadius: "10px",
+                boxShadow: "0 6px 20px rgba(37, 99, 235, 0.5)",
+                mr: 1.5,
+                fontSize: { xs: "1.3rem", md: "1.8rem" },
+                border: "1px solid rgba(255, 255, 255, 0.3)",
+              }}
+            >
+              BAHRIA TOWN
+            </Box>
+            Billing System{" "}
+            <Typography
+              component="span"
+              sx={{
+                fontWeight: "600",
+                color: colors.textLight,
+                fontSize: { xs: "1rem", md: "1.2rem" },
+                ml: 1,
+                textShadow: "0 1px 4px rgba(0, 0, 0, 0.3)",
+              }}
+            >
+              Generate Duplicate Bill
+            </Typography>
           </Typography>
-          <Typography 
+
+
+
+
+          {/* <Typography 
             variant="h5" 
             component="h2" 
             sx={{ 
@@ -420,7 +470,7 @@ const Billing = () => {
             }}
           >
             Generate Duplicate Bill
-          </Typography>
+          </Typography> */}
         </Box>
 
         {/* Error Message - Glass effect */}
@@ -450,7 +500,7 @@ const Billing = () => {
 
         {/* Billing Type Selection with Icons - Directly after subtitle */}
         <Box sx={{ mb: 3 }}>
-          <Typography 
+          {/* <Typography 
             variant="h6" 
             sx={{ 
               fontWeight: '600', 
@@ -463,7 +513,7 @@ const Billing = () => {
             }}
           >
             Select Billing Type
-          </Typography>
+          </Typography> */}
           <Box sx={{ 
             display: 'flex', 
             gap: 1.5, 

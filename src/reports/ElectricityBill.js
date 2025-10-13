@@ -793,6 +793,36 @@ export const generateElectricityPDF = (billingData, projects) => {
 
 
 
-  window.open(doc.output("bloburl"), "_blank");
+  // window.open(doc.output("bloburl"), "_blank");
+
+ // ✅ 1. Proper filename banana
+  const fileName = `Electricity Bill Lahore ${electricityBill.btNo}.pdf`;
+
+  // ✅ 1. Create a Blob and a temporary URL
+ const blob = doc.output("blob");
+  const blobUrl = URL.createObjectURL(blob);
+
+  const html = `
+    <html>
+      <head>
+        <title>${fileName.replace(".pdf", "")}</title>
+      </head>
+      <body style="margin:0; background:#f0f0f0;">
+        <div style="position:fixed; top:16px; right:125px; z-index:10;">
+          <a href="${blobUrl}" download="${fileName}" 
+             style="background:#d32f2f; color:white; padding:10px 20px; border-radius:8px;
+                    text-decoration:none; font-family:sans-serif; font-weight:bold;">
+            ⬇ Download Bill
+          </a>
+        </div>
+        <embed src="${blobUrl}" type="application/pdf" width="100%" height="100%" />
+      </body>
+    </html>
+  `;
+
+  const newTab = window.open();
+  newTab.document.write(html);
+  newTab.document.close();
+
 };
 
