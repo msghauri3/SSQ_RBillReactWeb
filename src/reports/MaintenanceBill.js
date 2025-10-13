@@ -132,14 +132,14 @@ export const generateMaintenancePDF = (billingData, projects) => {
          
         [
          { content: "BARCODE NO.",styles: {} },
-         { content: "REFRENCE NO . ", styles: {} },
+         { content: "REFRENCE NO.", styles: {halign:"center" } },
          { content: "BANK ACCOUNT NO . ",colSpan:2, styles: { } },
          { content: "Please Visit for Duplicate Bill visit:https://e-billingbahriatownlahore.com", rowSpan:13 ,styles: {lineWidth:{top: 0, right: 0.1, bottom: 0.1, left: 0.1} ,fontStyle:"bold", halign:"left" } },
         ],
 
         [
           { content:`${maintenanceBills.btNo}`,styles: {  } },
-         { content:`${maintenanceBills.customerNo}`, styles: {  } },
+         { content:`${maintenanceBills.customerNo}`, styles: { } },
          { content: "",colSpan:2, styles: {  } },
         ],
 
@@ -356,8 +356,8 @@ let NoticeY = doc.lastAutoTable.finalY;
 
        
       [
-        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}            ${customersMaintenance.block} \nSector:   ${customersMaintenance.sector} `, colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
-        { content: `Refrence Number \n ${customersMaintenance.customerNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
+        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}            ${customersMaintenance.block} \nSector :   ${customersMaintenance.sector} `, colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
+        { content: `Refrence Number\n ${customersMaintenance.customerNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
         { content: `${maintenanceBills.btNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
       ],
 
@@ -365,15 +365,15 @@ let NoticeY = doc.lastAutoTable.finalY;
 
       [
         { content: "BILL MONTH",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"center" } },
         { content: "PAYMENT WITHIN DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
         { content:`${maintenanceBills.billAmountInDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
 
      
       [
-        { content:`${maintenanceBills.billingMonth}`,colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content:`${maintenanceBills.billingMonth}   ${maintenanceBills.billingYear}`,colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
+        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign:"center" } },
         { content: "PAYMENT AFTER DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
         { content:`${maintenanceBills.billAmountAfterDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
@@ -393,8 +393,8 @@ let NoticeY = doc.lastAutoTable.finalY;
 
        
        [
-        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}              ${customersMaintenance.block} \nSector:   ${customersMaintenance.sector} `, colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
-        { content: `Refrence Number \n ${customersMaintenance.customerNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
+        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}              ${customersMaintenance.block} \nSector :   ${customersMaintenance.sector} `, colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
+        { content: `Refrence Number\n ${customersMaintenance.customerNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
         { content: `${maintenanceBills.btNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
       ],
 
@@ -402,15 +402,15 @@ let NoticeY = doc.lastAutoTable.finalY;
 
       [
         { content: "BILL MONTH",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"center" } },
         { content: "PAYMENT WITHIN DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
         { content:`${maintenanceBills.billAmountInDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
 
      
       [
-        { content:`${maintenanceBills.billingMonth}`,colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content:`${maintenanceBills.billingMonth}  ${maintenanceBills.billingYear}`,colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
+        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign:"center" } },
         { content: "PAYMENT AFTER DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
         { content:`${maintenanceBills.billAmountAfterDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
       ],
@@ -484,16 +484,6 @@ let NoticeY = doc.lastAutoTable.finalY;
       }
     });
 
-// 🔹 Watermark: DUPLICATE BILL
-  doc.saveGraphicsState(); // <-- save current graphics state
-  doc.setGState(new doc.GState({ opacity: 1 })); // Only affects this block
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(55);
-  doc.setTextColor(165, 165, 165); // Light gray
-  doc.text("Duplicate Bill", 40, 120, { angle: 20 });
-  doc.text("Duplicate  Bill", 40, 220, { angle: 20 });
-  doc.restoreGraphicsState(); // <-- restore so rest of PDF is normal
-
 
 // Generate Barcode
       const canvas = document.createElement("canvas");
@@ -507,10 +497,22 @@ let NoticeY = doc.lastAutoTable.finalY;
 
 
 doc.addImage("Bahria_Town_Logo.png", "PNG", 18, 25, 17, 20);
+doc.addImage("MaintenanceBill_UrduConditions.png", "PNG", 131,26,64,106);
 doc.addImage("urduinstructionmaint02.jpeg", "JPEG", 20, chargesY+5, 170,8);
 doc.addImage("scissors.png", "PNG", 178, NoticeY+2, 3.8, 3.8);
 doc.addImage("scissors.png", "PNG", 178, NoticeY+42, 3.8, 3.8);
 
+
+
+// 🔹 Watermark: DUPLICATE BILL
+  doc.saveGraphicsState(); // <-- save current graphics state
+  doc.setGState(new doc.GState({ opacity: 1 })); // Only affects this block
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(55);
+  doc.setTextColor(165, 165, 165); // Light gray
+  doc.text("Duplicate Bill", 40, 120, { angle: 20 });
+  doc.text("Duplicate  Bill", 40, 220, { angle: 20 });
+  doc.restoreGraphicsState(); // <-- restore so rest of PDF is normal
 
   
   window.open(doc.output("bloburl"), "_blank");
