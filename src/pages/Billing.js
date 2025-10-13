@@ -11,8 +11,8 @@ import {
   Select, 
   Alert, 
   CircularProgress,
-  useTheme,
-  useMediaQuery 
+  // useTheme,
+  // useMediaQuery 
 } from "@mui/material";
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
@@ -29,8 +29,8 @@ const Billing = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  // const theme = useTheme();
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   // Professional color palette with perfect contrast
   const colors = {
@@ -245,30 +245,56 @@ const Billing = () => {
   };
 
   // Reset Button - Glass effect
+  // const resetButtonStyle = {
+  //   border: `2px solid rgba(255, 255, 255, 0.5)`,
+  //   borderRadius: '12px',
+  //   color: '#ffffff',
+  //   fontWeight: '600',
+  //   textTransform: 'none',
+  //   padding: '16px 20px',
+  //   height: '56px',
+  //   fontSize: '14px',
+  //   backgroundColor: 'rgba(255, 255, 255, 0.15)',
+  //   letterSpacing: '0.5px',
+  //   minWidth: '100px',
+  //   backdropFilter: 'blur(10px)',
+  //   '&:hover': {
+  //     backgroundColor: 'rgba(255, 255, 255, 0.25)',
+  //     border: `2px solid rgba(255, 255, 255, 0.8)`,
+  //     boxShadow: '0 4px 12px rgba(255, 255, 255, 0.2)',
+  //     transform: 'translateY(-1px)',
+  //   },
+  //   '&:active': {
+  //     transform: 'translateY(0)',
+  //   },
+  //   transition: 'all 0.3s ease'
+  // };
   const resetButtonStyle = {
-    border: `2px solid rgba(255, 255, 255, 0.5)`,
+    border: `2px solid rgba(220, 38, 38, 0.6)`, // red border
     borderRadius: '12px',
-    color: '#ffffff',
+    color: "white", // red text
     fontWeight: '600',
     textTransform: 'none',
     padding: '16px 20px',
     height: '56px',
     fontSize: '14px',
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: 'rgba(220, 38, 38, 0.1)', // light red background
     letterSpacing: '0.5px',
     minWidth: '100px',
     backdropFilter: 'blur(10px)',
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.25)',
-      border: `2px solid rgba(255, 255, 255, 0.8)`,
-      boxShadow: '0 4px 12px rgba(255, 255, 255, 0.2)',
+      backgroundColor: 'rgba(220, 38, 38, 0.2)', // darker red on hover
+      border: `2px solid rgba(220, 38, 38, 0.9)`,
+      boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)',
       transform: 'translateY(-1px)',
+      color: '#b91c1c', // darker red text on hover
     },
     '&:active': {
       transform: 'translateY(0)',
     },
     transition: 'all 0.3s ease'
   };
+
 
   // Billing type buttons - Glass effect
   const billingTypeButtonStyle = (isActive) => ({
