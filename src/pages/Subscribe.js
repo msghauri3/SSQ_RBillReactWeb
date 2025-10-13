@@ -6,24 +6,25 @@ const Subscribe = () => {
     <section
       style={{
         backgroundImage: `
-          linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7)), 
-          url('https://source.unsplash.com/1600x500/?workspace,desk')
+          linear-gradient(rgba(0, 50, 150, 0.5), rgba(0, 50, 150, 0.5)), 
+          url('/Projects/Bahria Town Safari Villas.jpg')
         `,
+        backgroundAttachment: "fixed", // 👈 makes image stay fixed (parallax)
         backgroundSize: "cover",
         backgroundPosition: "center",
-        padding: "100px 20px",
+        padding: "120px 20px",
         textAlign: "center",
         position: "relative",
-        color: "#fff", // text white for contrast
+        color: "#fff",
       }}
     >
       <div style={{ position: "relative", zIndex: 1 }}>
         <h2
           style={{
-            fontSize: "28px",
-            letterSpacing: "3px",
+            fontSize: "30px",
+            letterSpacing: "2px",
             fontWeight: "bold",
-            marginBottom: "30px",
+            marginBottom: "40px",
           }}
         >
           SUBSCRIBE TO OUR NEWSLETTER
@@ -73,3 +74,4 @@ const Subscribe = () => {
 };
 
 export default Subscribe;
+
