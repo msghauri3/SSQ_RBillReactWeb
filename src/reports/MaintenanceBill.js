@@ -484,16 +484,6 @@ export const generateMaintenancePDF = (billingData, projects) => {
     }
   });
 
-// 🔹 Watermark: DUPLICATE BILL
-  doc.saveGraphicsState(); // <-- save current graphics state
-  doc.setGState(new doc.GState({ opacity: 1 })); // Only affects this block
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(55);
-  doc.setTextColor(165, 165, 165); // Light gray
-  doc.text("Duplicate Bill", 40, 120, { angle: 20 });
-  doc.text("Duplicate  Bill", 40, 220, { angle: 20 });
-  doc.restoreGraphicsState(); // <-- restore so rest of PDF is normal
-
 
   // Generate Barcode
   const canvas = document.createElement("canvas");
@@ -507,6 +497,7 @@ export const generateMaintenancePDF = (billingData, projects) => {
 
 
 doc.addImage("Bahria_Town_Logo.png", "PNG", 18, 25, 17, 20);
+doc.addImage("MaintenanceBill_UrduConditions.png", "PNG",131,26,64,106);
 doc.addImage("urduinstructionmaint02.jpeg", "JPEG", 20, chargesY+5, 170,8);
 doc.addImage("scissors.png", "PNG", 178, NoticeY+2, 3.8, 3.8);
 doc.addImage("scissors.png", "PNG", 178, NoticeY+42, 3.8, 3.8);
