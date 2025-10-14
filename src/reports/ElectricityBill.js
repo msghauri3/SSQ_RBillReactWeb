@@ -12,8 +12,6 @@ const formatDate = (dateString) => {
 };
 
 export const generateElectricityPDF = (billingData, projects) => {
-
-  
   // 🔹 Step 1: Extract both objects from API response
   const { electricityBill, customerDetail } = billingData[0];
 
@@ -21,46 +19,121 @@ export const generateElectricityPDF = (billingData, projects) => {
 
   // Generate Barcode
   const canvas = document.createElement("canvas");
-  JsBarcode(canvas, `${electricityBill.btNo}${electricityBill.billingMonth}${electricityBill.billingYear}`, {
-    format: "CODE39",
-    displayValue: true,
-    fontSize: 14,
-  });
+  JsBarcode(
+    canvas,
+    `${electricityBill.btNo}${electricityBill.billingMonth}${electricityBill.billingYear}`,
+    {
+      format: "CODE39",
+      displayValue: true,
+      fontSize: 14,
+    }
+  );
   const imgData = canvas.toDataURL("image/png");
   doc.addImage(imgData, "PNG", 70, 272, 70, 14);
-
-
-
 
   //Header
   autoTable(doc, {
     head: [],
     body: [
       [
-        { content: "", rowSpan: 7, styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0.1 } }},
+        {
+          content: "",
+          rowSpan: 7,
+          styles: {
+            lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0.1 },
+          },
+        },
         {
           content: "BAHRIA TOWN PVT LTD - ELECTRICITY BILL",
           colSpan: 6,
-          styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0.1 }, fontStyle: "bold", font: "helvetica", fontSize: 15, minCellHeight: 7, cellPadding: { top: 2} },
+          styles: {
+            lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0.1 },
+            fontStyle: "bold",
+            font: "helvetica",
+            fontSize: 15,
+            minCellHeight: 7,
+            cellPadding: { top: 2 },
+          },
         },
       ],
       [
         {
           content: "                YOUR LIFE STYLE DESTINATION",
           colSpan: 3,
-          styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 }, fontSize: 8, minCellHeight: 4, cellPadding: {bottom: 0.5 }, halign: "left"},
+          styles: {
+            lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 },
+            fontSize: 8,
+            minCellHeight: 4,
+            cellPadding: { bottom: 0.5 },
+            halign: "left",
+          },
         },
         {
           content: "GST NO. 07-02-8400-061-28               ",
           colSpan: 3,
-          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0 }, fontSize: 8, minCellHeight: 4, cellPadding: { bottom: 0.5 }, halign: "right" },
+          styles: {
+            lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0 },
+            fontSize: 8,
+            minCellHeight: 4,
+            cellPadding: { bottom: 0.5 },
+            halign: "right",
+          },
         },
       ],
-      [{content:`  ${customerDetail.customerName} CNIC No: ${customerDetail.cnicNo} NTN No: ${customerDetail.ntnNumber}`,colSpan:6,styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0 }}}],
-      [{content:`  House No: ${customerDetail.ploNo}  Block: ${customerDetail.block}  Sector: ${customerDetail.sector}`,colSpan:6,styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 }}}],
-      [{content:`  Invoice No: ${electricityBill.invoiceNo}`,colSpan:3,styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }}}, {content:`Valid Date: ${formatDate(electricityBill.validDate)}`,colSpan:3,styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 }}}],
-      [{content:"Reference No",styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }}}, "MF@", "Billing Month", "Reading Date", "Issue Date", {content:"Due Date",styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 }}}],
-      [ electricityBill.customerNo, "1",    `${electricityBill.billingMonth} ${electricityBill.billingYear}`,  { content: formatDate(electricityBill.readingDate), styles: { fontStyle: "normal" } },formatDate(electricityBill.issueDate),{content:formatDate(electricityBill.dueDate),styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 }}}]
+      [
+        {
+          content: `  ${customerDetail.customerName} CNIC No: ${customerDetail.cnicNo} NTN No: ${customerDetail.ntnNumber}`,
+          colSpan: 6,
+          styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0 } },
+        },
+      ],
+      [
+        {
+          content: `  House No: ${customerDetail.ploNo}  Block: ${customerDetail.block}  Sector: ${customerDetail.sector}`,
+          colSpan: 6,
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } },
+        },
+      ],
+      [
+        {
+          content: `  Invoice No: ${electricityBill.invoiceNo}`,
+          colSpan: 3,
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 } },
+        },
+        {
+          content: `Valid Date: ${formatDate(electricityBill.validDate)}`,
+          colSpan: 3,
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } },
+        },
+      ],
+      [
+        {
+          content: "Reference No",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 } },
+        },
+        "MF@",
+        "Billing Month",
+        "Reading Date",
+        "Issue Date",
+        {
+          content: "Due Date",
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } },
+        },
+      ],
+      [
+        electricityBill.customerNo,
+        "1",
+        `${electricityBill.billingMonth} ${electricityBill.billingYear}`,
+        {
+          content: formatDate(electricityBill.readingDate),
+          styles: { fontStyle: "normal" },
+        },
+        formatDate(electricityBill.issueDate),
+        {
+          content: formatDate(electricityBill.dueDate),
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } },
+        },
+      ],
     ],
     theme: "plain",
     // margin: { top: 10 },
@@ -68,11 +141,11 @@ export const generateElectricityPDF = (billingData, projects) => {
       fillColor: false,
       textColor: [0, 0, 0],
       lineColor: [0, 0, 0],
-      halign: "center"
+      halign: "center",
     },
     columnStyles: {
       0: { cellWidth: 20 },
-       2: { cellWidth: 25 }
+      2: { cellWidth: 25 },
     },
     didParseCell: function (data) {
       if (data.section === "body") {
@@ -80,20 +153,20 @@ export const generateElectricityPDF = (billingData, projects) => {
           data.cell.styles.minCellHeight = 3;
           data.cell.styles.cellPadding = 0.5;
           data.cell.styles.halign = "left";
-           data.cell.styles.fontSize = 9;
+          data.cell.styles.fontSize = 9;
         }
         if (data.row.index === 3) {
           data.cell.styles.minCellHeight = 3;
           data.cell.styles.cellPadding = 0.5;
-           data.cell.styles.halign = "left";
-            data.cell.styles.fontSize = 9;
+          data.cell.styles.halign = "left";
+          data.cell.styles.fontSize = 9;
         }
         if (data.row.index === 4) {
           data.cell.styles.minCellHeight = 4;
           data.cell.styles.cellPadding = 0.5;
           data.cell.styles.halign = "left";
           data.cell.styles.fontSize = 9;
-          data.cell.styles.fillColor = [235,235,235];
+          data.cell.styles.fillColor = [235, 235, 235];
         }
         if (data.row.index === 5) {
           data.cell.styles.minCellHeight = 3;
@@ -101,7 +174,7 @@ export const generateElectricityPDF = (billingData, projects) => {
           data.cell.styles.fontSize = 8;
           data.cell.styles.valign = "middle";
           data.cell.styles.fontStyle = "bold";
-          data.cell.styles.fillColor = [190,190,190];
+          data.cell.styles.fillColor = [190, 190, 190];
         }
         if (data.row.index === 6) {
           data.cell.styles.minCellHeight = 3;
@@ -114,89 +187,168 @@ export const generateElectricityPDF = (billingData, projects) => {
           if (data.column.index === 4 || data.column.index === 5) {
             data.cell.styles.fontStyle = "normal"; // ye sirf is cell pe apply hoga
           } else {
-            data.cell.styles.fontStyle = "bold";   // baaki sab bold
+            data.cell.styles.fontStyle = "bold"; // baaki sab bold
           }
         }
       }
     },
   });
   let headerY = doc.lastAutoTable.finalY;
-  
+
   //Body-1
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY,
     head: [],
     body: [
       [
-        { content: 'Bar Code No', styles: {} },
-        { content: 'Tariff', styles: {} },
-        { content: 'Conn Date', styles: {} },
-        { content: 'Bank Account No (BTL Branch)', colSpan: 2, styles: {} },
-        { content: '  Electricity', styles: { halign: "left" } }
+        { content: "Bar Code No", styles: {} },
+        { content: "Tariff", styles: {} },
+        { content: "Conn Date", styles: {} },
+        { content: "Bank Account No (BTL Branch)", colSpan: 2, styles: {} },
+        { content: "  Electricity", styles: { halign: "left" } },
       ],
       [
-        { content: `${electricityBill.btNo}`, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 } } },
-        { content: `${customerDetail.plotType}`, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } } },
-        { content: `${electricityBill.installedOn}`, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } } },
-        { content: '', colSpan: 2, rowSpan: 3, styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0 }, cellPadding: 0, fontSize: 10 } },
-        { content: '', rowSpan: 9, styles: {} },
+        {
+          content: `${electricityBill.btNo}`,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 } },
+        },
+        {
+          content: `${customerDetail.plotType}`,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } },
+        },
+        {
+          content: `${electricityBill.installedOn}`,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } },
+        },
+        {
+          content: "",
+          colSpan: 2,
+          rowSpan: 3,
+          styles: {
+            lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0 },
+            cellPadding: 0,
+            fontSize: 10,
+          },
+        },
+        { content: "", rowSpan: 9, styles: {} },
       ],
       [
-        { content: 'GRID', styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 } } },
-        { content: 'Meter Type', styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
-        { content: 'Category', styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } }
+        {
+          content: "GRID",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 } },
+        },
+        {
+          content: "Meter Type",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } },
+        },
+        {
+          content: "Category",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } },
+        },
       ],
       [
-        { content: 'BTL FEEDER - 1', styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 } } },
-        { content: `${electricityBill.meterType}`, styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 } } },
-        { content: `${customerDetail.category}`, styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 } } }
+        {
+          content: "BTL FEEDER - 1",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 } },
+        },
+        {
+          content: `${electricityBill.meterType}`,
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 } },
+        },
+        {
+          content: `${customerDetail.category}`,
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 } },
+        },
       ],
       [
-        { content: 'METER No', styles: {} },
-        { content: 'PREVIOUS', styles: {} },
-        { content: 'PRESENT', styles: {} },
-        { content: 'UNITS', styles: {} },
-        { content: 'MDI Reading', styles: {} }
+        { content: "METER No", styles: {} },
+        { content: "PREVIOUS", styles: {} },
+        { content: "PRESENT", styles: {} },
+        { content: "UNITS", styles: {} },
+        { content: "MDI Reading", styles: {} },
       ],
       [
-        { content: `${electricityBill.meterNo}`, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0.1 } } },
-        { content: `${electricityBill.previousReading1}`, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } } },
-        { content: `${electricityBill.currentReading1}`, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } } },
-        { content: `${electricityBill.difference1}`, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } } },
-        { content: '', styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0 } } }
+        {
+          content: `${electricityBill.meterNo}`,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0.1 } },
+        },
+        {
+          content: `${electricityBill.previousReading1}`,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } },
+        },
+        {
+          content: `${electricityBill.currentReading1}`,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } },
+        },
+        {
+          content: `${electricityBill.difference1}`,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0 } },
+        },
+        {
+          content: "",
+          styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0 } },
+        },
       ],
       [
-        { content: 'Units', styles: {} },
-        { content: 'Rate', styles: {} },
-        { content: 'Amount', styles: {} },
-        { content: 'Deferred Amount', colSpan: 2, styles: {} }
+        { content: "Units", styles: {} },
+        { content: "Rate", styles: {} },
+        { content: "Amount", styles: {} },
+        { content: "Deferred Amount", colSpan: 2, styles: {} },
       ],
       [
-        { content: `${electricityBill.totalUnit}`, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 } } },
-        { content: '51.5', styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } } },
-        { content: `${electricityBill.unitsAmount}`, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } } },
-        { content: '0', colSpan: 2, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } } }
+        {
+          content: `${electricityBill.totalUnit}`,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 } },
+        },
+        {
+          content: "51.5",
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } },
+        },
+        {
+          content: `${electricityBill.unitsAmount}`,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } },
+        },
+        {
+          content: "0",
+          colSpan: 2,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } },
+        },
       ],
       [
-        { content: '', colSpan: 5, styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0.1 }} }
+        {
+          content: "",
+          colSpan: 5,
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0.1 } },
+        },
       ],
       [
-        { content: 'Complaint Office (Mohlanwal) 042-35341646\nComplaint Office (Orchard)     042-35470996   042-35470997\nComplaint Office (Nasheman) 042-35935515', colSpan: 5, styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 }, cellPadding: 0.5, fontSize: 8, fontStyle: "bold", halign: "left" } }
-      ]
+        {
+          content:
+            "Complaint Office (Mohlanwal) 042-35341646\nComplaint Office (Orchard)     042-35470996   042-35470997\nComplaint Office (Nasheman) 042-35935515",
+          colSpan: 5,
+          styles: {
+            lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 },
+            cellPadding: 0.5,
+            fontSize: 8,
+            fontStyle: "bold",
+            halign: "left",
+          },
+        },
+      ],
     ],
-    theme: 'grid',
+    theme: "grid",
     bodyStyles: {
       fillColor: false,
       textColor: [0, 0, 0],
       lineColor: [0, 0, 0],
-      halign: 'center',
-      valign: 'middle'
+      halign: "center",
+      valign: "middle",
     },
     columnStyles: {
       0: { cellWidth: 20 },
       1: { cellWidth: 20 },
       2: { cellWidth: 20 },
-      5: { cellWidth: 65 }
+      5: { cellWidth: 65 },
     },
     // didParseCell: function (data) {
     //   if (data.section === "body") {
@@ -250,7 +402,7 @@ export const generateElectricityPDF = (billingData, projects) => {
           cellPadding: 0,
           valign: "middle",
           fillColor: "black",
-          textColor: "white"
+          textColor: "white",
         });
       }
 
@@ -260,7 +412,7 @@ export const generateElectricityPDF = (billingData, projects) => {
           minCellHeight: 8,
           fontSize: 8,
           cellPadding: { top: 1 },
-          valign: "top"
+          valign: "top",
         });
       }
       if (r === 5 || r === 7) {
@@ -268,7 +420,7 @@ export const generateElectricityPDF = (billingData, projects) => {
           minCellHeight: 6,
           fontSize: 8,
           cellPadding: { top: 1 },
-          valign: "top"
+          valign: "top",
         });
       }
 
@@ -279,7 +431,7 @@ export const generateElectricityPDF = (billingData, projects) => {
           fontSize: 8,
           cellPadding: 0,
           valign: "middle",
-          fontStyle: "bold"
+          fontStyle: "bold",
         });
       }
 
@@ -289,18 +441,17 @@ export const generateElectricityPDF = (billingData, projects) => {
           minCellHeight: 15,
           fontSize: 8,
           cellPadding: 0,
-          valign: "top"
+          valign: "top",
         });
       }
 
       // Urdu text or image row
       if (r === 8) {
-        setCell({ 
-          minCellHeight: 30
-        });  
+        setCell({
+          minCellHeight: 30,
+        });
       }
-    }
-
+    },
   });
 
   //Please Visit for Duplicate Bill:
@@ -309,55 +460,86 @@ export const generateElectricityPDF = (billingData, projects) => {
     head: [],
     body: [
       [
-        { content: '   In case of non receipt or loss of bill,duplicate bill can be', styles: {lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 }, halign: "left"} },
-        { content: 'Quries regarding electric bills dia      ', styles: {lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0 }, halign: "right"} }
+        {
+          content:
+            "   In case of non receipt or loss of bill,duplicate bill can be",
+          styles: {
+            lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 },
+            halign: "left",
+          },
+        },
+        {
+          content: "Quries regarding electric bills dia      ",
+          styles: {
+            lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0 },
+            halign: "right",
+          },
+        },
       ],
       [
-        { content: '   obtained from Billing Offce before 5th of each month. ', styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 } , halign: "left"} },
-        { content: '042-35341623 (Ext.120-121-126 )   ', styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 }, halign: "right" , fontStyle:"bold"} }
+        {
+          content: "   obtained from Billing Offce before 5th of each month. ",
+          styles: {
+            lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 },
+            halign: "left",
+          },
+        },
+        {
+          content: "042-35341623 (Ext.120-121-126 )   ",
+          styles: {
+            lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 },
+            halign: "right",
+            fontStyle: "bold",
+          },
+        },
       ],
       [
-        { content: 'Please Visit for Duplicate Bill: https://www.e-billingbahriatownlahore.com',colSpan:2, styles: { lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0.1 } } }
-      ]
+        {
+          content:
+            "Please Visit for Duplicate Bill: https://www.e-billingbahriatownlahore.com",
+          colSpan: 2,
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0.1 } },
+        },
+      ],
     ],
-    theme: 'grid',
+    theme: "grid",
     bodyStyles: {
       fillColor: false,
       textColor: [0, 0, 0],
       lineColor: [0, 0, 0],
-      halign: 'center',
-      valign: 'middle',
-      cellPadding:0
+      halign: "center",
+      valign: "middle",
+      cellPadding: 0,
     },
     didParseCell: function (data) {
       if (data.section !== "body") return;
 
-      const { row,
+      const {
+        row,
         // column,
-        cell } = data;
+        cell,
+      } = data;
       const r = row.index;
       // const c = column.index;
 
       // Helper to merge style properties
       const setCell = (styles) => Object.assign(cell.styles, styles);
 
-      if (r === 0 || r === 1){
+      if (r === 0 || r === 1) {
         setCell({
-          fontSize:8,
-           cellPadding: { top: 0.5},
-        })
+          fontSize: 8,
+          cellPadding: { top: 0.5 },
+        });
       }
-      if (r === 2){
+      if (r === 2) {
         setCell({
-          fillColor:[225, 225, 225],
-          fontStyle:"bold"
-        })
+          fillColor: [225, 225, 225],
+          fontStyle: "bold",
+        });
       }
-        
-    }
+    },
   });
-  let duplicatelinkY = doc.lastAutoTable.finalY+3;
-
+  let duplicatelinkY = doc.lastAutoTable.finalY + 3;
 
   //Bill Amount
   autoTable(doc, {
@@ -365,230 +547,382 @@ export const generateElectricityPDF = (billingData, projects) => {
     head: [],
     body: [
       [
-        { content: '',rowSpan:17, styles: {lineWidth:{top: 0.1, right: 0, bottom: 0.1, left: 0.1}} },
-        { content: '> In case of Gazetted Holidays on due date, bill will be received by bank on next working day.',colSpan:4, styles: {lineWidth:{top: 0.1, right: 0.1, bottom: 0, left: 0}, cellPadding: {top:0.5}} }
+        {
+          content: "",
+          rowSpan: 17,
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0.1, left: 0.1 } },
+        },
+        {
+          content:
+            "> In case of Gazetted Holidays on due date, bill will be received by bank on next working day.",
+          colSpan: 4,
+          styles: {
+            lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0 },
+            cellPadding: { top: 0.5 },
+          },
+        },
       ],
       [
-        { content: '> In case of non-payment of electric bill for one month your electricity will be disconnected.',colSpan:4, styles: {lineWidth:{top: 0, right: 0.1, bottom: 0, left: 0}} }
+        {
+          content:
+            "> In case of non-payment of electric bill for one month your electricity will be disconnected.",
+          colSpan: 4,
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } },
+        },
       ],
       [
-        { content: 'Connection will be restored on payment of Reconnection fee as under:-',colSpan:4, styles: {lineWidth:{top: 0, right: 0.1, bottom: 0.1, left: 0}} }
+        {
+          content:
+            "Connection will be restored on payment of Reconnection fee as under:-",
+          colSpan: 4,
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0 } },
+        },
       ],
       [
-        { content: 'Bill Amount', styles: {} },
-        { content: 'Charges', styles: {} },
-        { content: 'Bill Amount', styles: {} },
-        { content: 'Charges', styles: {} }
+        { content: "Bill Amount", styles: {} },
+        { content: "Charges", styles: {} },
+        { content: "Bill Amount", styles: {} },
+        { content: "Charges", styles: {} },
       ],
       [
-        { content: 'Up to 1,000', styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}} },
-        { content: 'Rs.100/-', styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0}} },
-        { content: 'Between 15,001 to 50,000', styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0}} },
-        { content: 'Rs.2,500/-', styles: {lineWidth:{top: 0.1, right: 0.1, bottom: 0, left: 0}} }
+        {
+          content: "Up to 1,000",
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 } },
+        },
+        {
+          content: "Rs.100/-",
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } },
+        },
+        {
+          content: "Between 15,001 to 50,000",
+          styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } },
+        },
+        {
+          content: "Rs.2,500/-",
+          styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0 } },
+        },
       ],
       [
-        { content: '1,001 to 5,000', styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0.1}} },
-        { content: 'Rs.500/-', styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-        { content: 'Between 50,001 to 1 Lac', styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}} },
-        { content: 'Rs.5,000/-', styles: {lineWidth:{top: 0, right: 0.1, bottom: 0, left: 0}} }
+        {
+          content: "1,001 to 5,000",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 } },
+        },
+        {
+          content: "Rs.500/-",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } },
+        },
+        {
+          content: "Between 50,001 to 1 Lac",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } },
+        },
+        {
+          content: "Rs.5,000/-",
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } },
+        },
       ],
       [
-        { content: '5,001 to 15,000', styles: {lineWidth:{top: 0, right: 0, bottom: 0.1, left: 0.1}} },
-        { content: 'Rs.1000/-', styles: {lineWidth:{top: 0, right: 0, bottom: 0.1, left: 0}} },
-        { content: 'Over 1 Lac', styles: {lineWidth:{top: 0, right: 0, bottom: 0.1, left: 0}} },
-        { content: 'Rs.7,000', styles: {lineWidth:{top: 0, right: 0.1, bottom: 0.1, left: 0}} }
+        {
+          content: "5,001 to 15,000",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0.1 } },
+        },
+        {
+          content: "Rs.1000/-",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 } },
+        },
+        {
+          content: "Over 1 Lac",
+          styles: { lineWidth: { top: 0, right: 0, bottom: 0.1, left: 0 } },
+        },
+        {
+          content: "Rs.7,000",
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0 } },
+        },
       ],
       [
-        { content: '> Minimum Charges. A-1 Residential (Rs-200/-) A-2-a Commercial ( Rs-450/-) E-1-i Temp (Rs-600/- ) PEAK / OFF PEAK TIMINGS',colSpan:4, styles: {lineWidth:{top: 0.1, right: 0.1, bottom: 0.1, left: 0}} }
+        {
+          content:
+            "> Minimum Charges. A-1 Residential (Rs-200/-) A-2-a Commercial ( Rs-450/-) E-1-i Temp (Rs-600/- ) PEAK / OFF PEAK TIMINGS",
+          colSpan: 4,
+          styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0.1, left: 0 } },
+        },
       ],
       [
-        { content: 'Season',colSpan:2, styles: {} },
-        { content: 'Peak Timing', styles: {} },
-        { content: 'Off-Peak Timing', styles: {} }
+        { content: "Season", colSpan: 2, styles: {} },
+        { content: "Peak Timing", styles: {} },
+        { content: "Off-Peak Timing", styles: {} },
       ],
       [
-        { content: 'Dec to Feb',colSpan:2, styles: {} },
-        { content: '5 PM to 9 PM', styles: {} },
-        { content: 'Remaining 20 Hours', styles: {} }
+        { content: "Dec to Feb", colSpan: 2, styles: {} },
+        { content: "5 PM to 9 PM", styles: {} },
+        { content: "Remaining 20 Hours", styles: {} },
       ],
       [
-        { content: 'Mar to May',colSpan:2, styles: {} },
-        { content: '6 PM to 10 PM', styles: {} },
-        { content: '              -do-', styles: {} }
+        { content: "Mar to May", colSpan: 2, styles: {} },
+        { content: "6 PM to 10 PM", styles: {} },
+        { content: "              -do-", styles: {} },
       ],
       [
-        { content: 'Jun to Aug',colSpan:2, styles: {} },
-        { content: '7 PM to 11 PM', styles: {} },
-        { content: '              -do-', styles: {} }
-      ],
-       [
-        { content: 'Sep to Nov',colSpan:2, styles: {} },
-        { content: '6 PM to 10 PM', styles: {} },
-        { content: '              -do-', styles: {} }
-      ],
-       [
-        { content: 'FPA VAR',colSpan: 2, styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0}, fontStyle:"bold"} },
-        { content: '     -1909',colSpan:2, styles: {lineWidth:{top: 0.1, right: 0.1, bottom: 0, left: 0}} }
+        { content: "Jun to Aug", colSpan: 2, styles: {} },
+        { content: "7 PM to 11 PM", styles: {} },
+        { content: "              -do-", styles: {} },
       ],
       [
-        { content: 'FPA ED',colSpan: 2, styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}, fontStyle:"bold"} },
-        { content: '     -29',colSpan:2, styles: {lineWidth:{top: 0, right: 0.1, bottom: 0, left: 0}} }
+        { content: "Sep to Nov", colSpan: 2, styles: {} },
+        { content: "6 PM to 10 PM", styles: {} },
+        { content: "              -do-", styles: {} },
       ],
       [
-        { content: 'FPA GST',colSpan: 2, styles: {lineWidth:{top: 0, right: 0, bottom: 0, left: 0}, fontStyle:"bold"} },
-        { content: '     -349',colSpan:2, styles: {lineWidth:{top: 0, right: 0.1, bottom: 0, left: 0}} }
+        {
+          content: "FPA VAR",
+          colSpan: 2,
+          styles: {
+            lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 },
+            fontStyle: "bold",
+          },
+        },
+        {
+          content: "     -1909",
+          colSpan: 2,
+          styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0 } },
+        },
       ],
       [
-        { content: '',colSpan: 4, styles: {lineWidth:{top: 0, right: 0.1, bottom: 0.1, left: 0}} }
-      ]
+        {
+          content: "FPA ED",
+          colSpan: 2,
+          styles: {
+            lineWidth: { top: 0, right: 0, bottom: 0, left: 0 },
+            fontStyle: "bold",
+          },
+        },
+        {
+          content: "     -29",
+          colSpan: 2,
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } },
+        },
+      ],
+      [
+        {
+          content: "FPA GST",
+          colSpan: 2,
+          styles: {
+            lineWidth: { top: 0, right: 0, bottom: 0, left: 0 },
+            fontStyle: "bold",
+          },
+        },
+        {
+          content: "     -349",
+          colSpan: 2,
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } },
+        },
+      ],
+      [
+        {
+          content: "",
+          colSpan: 4,
+          styles: { lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0 } },
+        },
+      ],
     ],
-    theme: 'grid',
+    theme: "grid",
     bodyStyles: {
       fillColor: false,
       textColor: [0, 0, 0],
       lineColor: [0, 0, 0],
-      halign: 'center',
-      valign: 'middle',
-      cellPadding:0,
-      fontSize:6
+      halign: "center",
+      valign: "middle",
+      cellPadding: 0,
+      fontSize: 6,
     },
     columnStyles: {
-      0: { cellWidth: 85 }
+      0: { cellWidth: 85 },
     },
     didParseCell: function (data) {
       if (data.section !== "body") return;
 
-      const { row,
+      const {
+        row,
         // column,
-        cell } = data;
+        cell,
+      } = data;
       const r = row.index;
       // const c = column.index;
 
       // Helper to merge style properties
       const setCell = (styles) => Object.assign(cell.styles, styles);
 
-      if(r === 0 || r === 1|| r === 2 || r === 7){
-        setCell({
-          halign: "left"
-        })
-      }
-      if(r=== 3|| r === 4||r===5 || r===6){
+      if (r === 0 || r === 1 || r === 2 || r === 7) {
         setCell({
           halign: "left",
-         cellPadding: { top: 0.5,left: 3} 
-        })
+        });
       }
-      if(r>= 8 && r<=15){
+      if (r === 3 || r === 4 || r === 5 || r === 6) {
         setCell({
           halign: "left",
-          cellPadding: { top: 0.5,left: 1} 
-        })
+          cellPadding: { top: 0.5, left: 3 },
+        });
       }
-      if(r=== 3){
+      if (r >= 8 && r <= 15) {
+        setCell({
+          halign: "left",
+          cellPadding: { top: 0.5, left: 1 },
+        });
+      }
+      if (r === 3) {
         setCell({
           fillColor: "black",
-          textColor: "white"
-        })
+          textColor: "white",
+        });
       }
-      if(r===1 || r===2 || r=== 8){
+      if (r === 1 || r === 2 || r === 8) {
         setCell({
-          fontStyle: "bold"
-        })
+          fontStyle: "bold",
+        });
       }
-      if(r===16){
+      if (r === 16) {
         setCell({
-          minCellHeight: 25
-        })
+          minCellHeight: 25,
+        });
       }
-      if(r===7){
+      if (r === 7) {
         setCell({
-          cellPadding:{top:0.5, bottom: 0.5}
-        })
+          cellPadding: { top: 0.5, bottom: 0.5 },
+        });
       }
-        
-    }
+    },
   });
 
-   let HistoryY = doc.lastAutoTable.finalY+3;
+  let HistoryY = doc.lastAutoTable.finalY + 3;
 
-   //Bank Copy
+  //Bank Copy
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY,
     head: [],
     body: [
       [
-        { content: '--------------------------------------------------- CUT HERE --------------------------------------------------',colSpan: 6, styles: {} }
+        {
+          content:
+            "--------------------------------------------------- CUT HERE --------------------------------------------------",
+          colSpan: 6,
+          styles: {},
+        },
       ],
       [
-        { content: 'Bank Copy', styles: {} },
-        { content: 'BAHRIA TOWN PVT LTD - ELECTRICITY BILL',colSpan:3, styles: {fontStyle:"bold"} },
-        { content: 'Reference No', styles: {} },
-        { content: electricityBill.customerNo, styles: {} }
+        { content: "Bank Copy", styles: {} },
+        {
+          content: "BAHRIA TOWN PVT LTD - ELECTRICITY BILL",
+          colSpan: 3,
+          styles: { fontStyle: "bold" },
+        },
+        { content: "Reference No", styles: {} },
+        { content: electricityBill.customerNo, styles: {} },
       ],
       [
-        { content: electricityBill.customerName,colSpan:2, styles: {} },
-        { content: `${customerDetail.ploNo}    /   ${electricityBill.block}    /    ${electricityBill.sector}`, colSpan: 2, styles: {} },
-        { content: 'Meter Number', styles: {} },
-        { content: electricityBill.meterNo, styles: {} }
+        { content: electricityBill.customerName, colSpan: 2, styles: {} },
+        {
+          content: `${customerDetail.ploNo}    /   ${electricityBill.block}    /    ${electricityBill.sector}`,
+          colSpan: 2,
+          styles: {},
+        },
+        { content: "Meter Number", styles: {} },
+        { content: electricityBill.meterNo, styles: {} },
       ],
       [
-        { content: 'Bill Month',colSpan:2, styles: {} },
-        { content: 'Due Date', styles: {} },
-        { content: 'Barcode No.', styles: {} },
-        { content: 'Total Payable', styles: {} },
-        { content: electricityBill.billAmountInDueDate, styles: {fontStyle:"bold"} }
+        { content: "Bill Month", colSpan: 2, styles: {} },
+        { content: "Due Date", styles: {} },
+        { content: "Barcode No.", styles: {} },
+        { content: "Total Payable", styles: {} },
+        {
+          content: electricityBill.billAmountInDueDate,
+          styles: { fontStyle: "bold" },
+        },
       ],
       [
-        { content: `${electricityBill.billingMonth} ${electricityBill.billingYear}`,colSpan:2, styles: {} },
-        { content: formatDate(electricityBill.dueDate), styles: {fontStyle:"bold"} },
-        { content: electricityBill.btNo, styles: {fontStyle:"bold"} },
-        { content: 'Late Payment', styles: {} },
-        { content: electricityBill.billAmountAfterDueDate, styles: {fontStyle:"bold"} }
+        {
+          content: `${electricityBill.billingMonth} ${electricityBill.billingYear}`,
+          colSpan: 2,
+          styles: {},
+        },
+        {
+          content: formatDate(electricityBill.dueDate),
+          styles: { fontStyle: "bold" },
+        },
+        { content: electricityBill.btNo, styles: { fontStyle: "bold" } },
+        { content: "Late Payment", styles: {} },
+        {
+          content: electricityBill.billAmountAfterDueDate,
+          styles: { fontStyle: "bold" },
+        },
       ],
       [
-        { content: '--------------------------------------------------- CUT HERE --------------------------------------------------',colSpan: 6, styles: {} }
+        {
+          content:
+            "--------------------------------------------------- CUT HERE --------------------------------------------------",
+          colSpan: 6,
+          styles: {},
+        },
       ],
       [
-        { content: 'BTL Copy', styles: {} },
-        { content: 'BAHRIA TOWN PVT LTD - ELECTRICITY BILL',colSpan:3, styles: {fontStyle:"bold"} },
-        { content: 'Reference No', styles: {} },
-        { content: electricityBill.customerNo, styles: {} }
+        { content: "BTL Copy", styles: {} },
+        {
+          content: "BAHRIA TOWN PVT LTD - ELECTRICITY BILL",
+          colSpan: 3,
+          styles: { fontStyle: "bold" },
+        },
+        { content: "Reference No", styles: {} },
+        { content: electricityBill.customerNo, styles: {} },
       ],
       [
-        { content: electricityBill.customerName,colSpan:2, styles: {} },
-        { content: `${customerDetail.ploNo}    /   ${electricityBill.block}    /    ${electricityBill.sector}`, colSpan: 2, styles: {} },
-        { content: 'Meter Number', styles: {} },
-        { content: electricityBill.meterNo, styles: {} }
+        { content: electricityBill.customerName, colSpan: 2, styles: {} },
+        {
+          content: `${customerDetail.ploNo}    /   ${electricityBill.block}    /    ${electricityBill.sector}`,
+          colSpan: 2,
+          styles: {},
+        },
+        { content: "Meter Number", styles: {} },
+        { content: electricityBill.meterNo, styles: {} },
       ],
       [
-        { content: 'Bill Month',colSpan:2, styles: {} },
-        { content: 'Due Date', styles: {} },
-        { content: 'Barcode No.', styles: {} },
-        { content: 'Total Payable', styles: {} },
-        { content: electricityBill.billAmountInDueDate, styles: {fontStyle:"bold"} }
+        { content: "Bill Month", colSpan: 2, styles: {} },
+        { content: "Due Date", styles: {} },
+        { content: "Barcode No.", styles: {} },
+        { content: "Total Payable", styles: {} },
+        {
+          content: electricityBill.billAmountInDueDate,
+          styles: { fontStyle: "bold" },
+        },
       ],
       [
-        { content: `${electricityBill.billingMonth} ${electricityBill.billingYear}`,colSpan:2, styles: {} },
-        { content: formatDate(electricityBill.dueDate), styles: {fontStyle:"bold"} },
-        { content: electricityBill.btNo, styles: {fontStyle:"bold"} },
-        { content: 'Late Payment', styles: {} },
-        { content: electricityBill.billAmountAfterDueDate, styles: {fontStyle:"bold"} }
-      ]
-      
+        {
+          content: `${electricityBill.billingMonth} ${electricityBill.billingYear}`,
+          colSpan: 2,
+          styles: {},
+        },
+        {
+          content: formatDate(electricityBill.dueDate),
+          styles: { fontStyle: "bold" },
+        },
+        { content: electricityBill.btNo, styles: { fontStyle: "bold" } },
+        { content: "Late Payment", styles: {} },
+        {
+          content: electricityBill.billAmountAfterDueDate,
+          styles: { fontStyle: "bold" },
+        },
+      ],
     ],
-    theme: 'grid',
+    theme: "grid",
     bodyStyles: {
       fillColor: false,
       textColor: [0, 0, 0],
       lineColor: [0, 0, 0],
-      halign: 'center',
-      valign: 'middle',
-      cellPadding:{top: 0.5,bottom:0.5},
-      fontSize:8,
+      halign: "center",
+      valign: "middle",
+      cellPadding: { top: 0.5, bottom: 0.5 },
+      fontSize: 8,
     },
-     columnStyles: {
+    columnStyles: {
       0: { cellWidth: 30 },
-      1: { cellWidth: 30 }
+      1: { cellWidth: 30 },
     },
 
     // didParseCell: function (data) {
@@ -602,24 +936,13 @@ export const generateElectricityPDF = (billingData, projects) => {
 
     //   // Helper to merge style properties
     //   const setCell = (styles) => Object.assign(cell.styles, styles);
- 
+
     // }
   });
 
-
-
-
-
-
-
-
-
-
-
-
   //Electricity Table
   autoTable(doc, {
-    startY: headerY+2,
+    startY: headerY + 2,
     margin: { left: 132 },
     tableWidth: 62.5,
     body: [
@@ -628,32 +951,40 @@ export const generateElectricityPDF = (billingData, projects) => {
       ["OPC @ 9.9", `-                 ${electricityBill.opc}`],
       ["PTV Fee", `-                 ${electricityBill.ptvfee}`],
       ["FPA", `-                 ${electricityBill.fpacharges}`],
-      [{content:"For Commercial Consumers", colSpan:2, styles:{fontSize:9, halign: "center", fontStyle:"bold"}}],
+      [
+        {
+          content: "For Commercial Consumers",
+          colSpan: 2,
+          styles: { fontSize: 9, halign: "center", fontStyle: "bold" },
+        },
+      ],
       ["Further Tax", `-                 ${electricityBill.furthertax}`],
       ["Retailer Tax", "-                 0"],
       ["Extra Tax", `-                 ${electricityBill.extraTax}`],
-      [{content:"", colSpan:2}],
+      [{ content: "", colSpan: 2 }],
       ["Current Bill", `${electricityBill.billAmount}`],
       ["Arrears", `${electricityBill.arrears}`],
       ["Total Payable", `${electricityBill.billAmountInDueDate}`],
       ["L.P Surcharge", `${electricityBill.billSurcharge}`],
-      ["Late Payment", `${electricityBill.billAmountAfterDueDate}`]
+      ["Late Payment", `${electricityBill.billAmountAfterDueDate}`],
     ],
     theme: "plain",
     bodyStyles: {
       textColor: [0, 0, 0],
       lineColor: [0, 0, 0],
-      valign: "middle"
+      valign: "middle",
     },
     columnStyles: {
-      0: { cellWidth: 33 }
+      0: { cellWidth: 33 },
     },
     didParseCell: function (data) {
       if (data.section !== "body") return;
 
-      const { row,
+      const {
+        row,
         // column,
-        cell } = data;
+        cell,
+      } = data;
       const r = row.index;
       // const c = column.index;
 
@@ -664,27 +995,27 @@ export const generateElectricityPDF = (billingData, projects) => {
         setCell({
           fontSize: 8,
           cellPadding: { top: 2 },
-          halign: "left"
-        })
+          halign: "left",
+        });
       }
-      if(r>=10 && r<=14){
+      if (r >= 10 && r <= 14) {
         setCell({
           fontSize: 9,
           halign: "left",
-          cellPadding: { top: 2 }
-        })
+          cellPadding: { top: 2 },
+        });
       }
-      if(r=== 12 || r===14){
+      if (r === 12 || r === 14) {
         setCell({
-          fontStyle: "bold"
-        })
+          fontStyle: "bold",
+        });
       }
-    }
+    },
   });
 
   //Bank Account No (BTL Branch)
   autoTable(doc, {
-   startY: headerY+4,
+    startY: headerY + 4,
     margin: { left: 74.5 },
     tableWidth: 55.5,
     body: [
@@ -696,16 +1027,16 @@ export const generateElectricityPDF = (billingData, projects) => {
       ["Bill Collection Timing From"],
       ["9:00 to 17:00(Only Working Days)"],
       [""],
-      ],
+    ],
     theme: "plain",
     bodyStyles: {
       textColor: [0, 0, 0],
       lineColor: [0, 0, 0],
       valign: "middle",
-      fontSize:6.5,
-      cellPadding: {top:0.5},
-      halign: "left"
-    }
+      fontSize: 6.5,
+      cellPadding: { top: 0.5 },
+      halign: "left",
+    },
   });
 
   //BiLL History
@@ -714,7 +1045,7 @@ export const generateElectricityPDF = (billingData, projects) => {
     margin: { left: 26 },
     tableWidth: 60,
     body: [
-      [{content:"Month", colSpan:2}, "Units", "Bill", "Payment"],
+      [{ content: "Month", colSpan: 2 }, "Units", "Bill", "Payment"],
       ["Jan", "2025", "150", "9810", "9810"],
       ["Feb", "2025", "154", "9800", "9800"],
       ["Mar", "2025", "221", "14660", "14660"],
@@ -726,57 +1057,58 @@ export const generateElectricityPDF = (billingData, projects) => {
       ["Sep", "2025", "809", "47390", "0000"],
       ["Oct", "2025", "773", "50660", "50660"],
       ["Nov", "2024", "289", "18570", "18570"],
-      ["Dec", "2024", "158", "9560", "9560"]
-      ],
+      ["Dec", "2024", "158", "9560", "9560"],
+    ],
     theme: "plain",
     bodyStyles: {
       textColor: [0, 0, 0],
       lineColor: [0, 0, 0],
       valign: "middle",
       halign: "center",
-      fontSize:7,
+      fontSize: 7,
       cellPadding: 0.3,
     },
-    columnStyles:{
-      0:{cellWidth: 10},
-      1:{cellWidth: 10},
-      2:{cellWidth: 15}
+    columnStyles: {
+      0: { cellWidth: 10 },
+      1: { cellWidth: 10 },
+      2: { cellWidth: 15 },
     },
-     didParseCell: function (data) {
+    didParseCell: function (data) {
       if (data.section !== "body") return;
 
-      const { row,
+      const {
+        row,
         // column,
-        cell } = data;
+        cell,
+      } = data;
       const r = row.index;
       // const c = column.index;
 
       // Helper to merge style properties
       const setCell = (styles) => Object.assign(cell.styles, styles);
 
-      if (r===0){
+      if (r === 0) {
         setCell({
-          fillColor:"black",
-          textColor: "white"
-        })
+          fillColor: "black",
+          textColor: "white",
+        });
       }
-    }
+    },
   });
-
 
   // Images
   //doc.addImage("imageName", "type", x, y, width, height);
   doc.addImage("logo.png", "PNG", 15, 23, 18, 18);
-  doc.addImage("urdumessage1.jpeg", "JPEG", 15, headerY+47, 115, 30);
-  doc.addImage("urdumessage2.png", "PNG", 99, duplicatelinkY+47, 96, 23);
+  doc.addImage("urdumessage1.jpeg", "JPEG", 15, headerY + 47, 115, 30);
+  doc.addImage("urdumessage2.png", "PNG", 99, duplicatelinkY + 47, 96, 23);
   doc.setFont("times", "normal");
   doc.setFontSize(12);
-  doc.text("Note:", 21, duplicatelinkY+48);
-  doc.addImage("urdumessage3.png", "PNG", 21, duplicatelinkY+49, 70, 14);
-  doc.addImage("scissors.png", "PNG", 161, HistoryY-2.5, 3.5, 3.5);
-  doc.addImage("scissors.png", "PNG", 161, HistoryY+18.5, 3.5, 3.5);
+  doc.text("Note:", 21, duplicatelinkY + 48);
+  doc.addImage("urdumessage3.png", "PNG", 21, duplicatelinkY + 49, 70, 14);
+  doc.addImage("scissors.png", "PNG", 161, HistoryY - 2.5, 3.5, 3.5);
+  doc.addImage("scissors.png", "PNG", 161, HistoryY + 18.5, 3.5, 3.5);
 
-   // 🔹 Watermark: DUPLICATE BILL
+  // 🔹 Watermark: DUPLICATE BILL
   doc.saveGraphicsState(); // <-- save current graphics state
   doc.setGState(new doc.GState({ opacity: 1 })); // Only affects this block
   doc.setFont("helvetica", "normal");
@@ -786,41 +1118,78 @@ export const generateElectricityPDF = (billingData, projects) => {
   doc.text("DUPLICATE BILL", 32, 210, { angle: 20 });
   doc.restoreGraphicsState(); // <-- restore so rest of PDF is normal
 
+
+
+
+
   
-
-
-
-
-
 
   // window.open(doc.output("bloburl"), "_blank");
 
- // ✅ 1. Proper filename banana
-  const fileName = `Electricity Bill Lahore ${electricityBill.btNo}.pdf`;
 
-  // ✅ 1. Create a Blob and a temporary URL
- const blob = doc.output("blob");
+
+  const fileName = `Electricity ${electricityBill.btNo} ${electricityBill.billingMonth} ${electricityBill.billingYear} .pdf`;
+  const blob = doc.output("blob");
   const blobUrl = URL.createObjectURL(blob);
 
+  // ✅ Emoji favicon (⚡ Electricity emoji)
+  const emoji = "⚡";
+
+  // ✅ Create favicon as SVG (so it's clean and crisp)
+  const faviconSvg = `
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <text y=".9em" font-size="90">${emoji}</text>
+  </svg>
+`;
+  const faviconDataUrl = `data:image/svg+xml,${encodeURIComponent(faviconSvg)}`;
+
+  // ✅ HTML structure
   const html = `
-    <html>
-      <head>
-        <title>${fileName.replace(".pdf", "")}</title>
-      </head>
-      <body style="margin:0; background:#f0f0f0;">
-        <div style="position:fixed; top:16px; right:125px; z-index:10;">
-          <a href="${blobUrl}" download="${fileName}" 
-             style="background:#d32f2f; color:white; padding:10px 20px; border-radius:8px;
-                    text-decoration:none; font-family:sans-serif; font-weight:bold;">
-            ⬇ Download Bill
-          </a>
-        </div>
-        <embed src="${blobUrl}" type="application/pdf" width="100%" height="100%" />
-      </body>
-    </html>
-  `;
+<html>
+  <head>
+    <title>${fileName.replace(".pdf", "")}</title>
+
+    <!-- Emoji favicon -->
+    <link rel="icon" href="${faviconDataUrl}" type="image/svg+xml" />
+
+    <style>
+      body {
+        margin: 0;
+        background: #f4f4f4;
+        font-family: 'Segoe UI', sans-serif;
+      }
+      .download-btn {
+        position: fixed;
+        top: 7px;
+        right: 125px;
+        background: #1976d2;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      }
+      .download-btn:hover {
+        background: #0d47a1;
+      }
+      embed {
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="${blobUrl}" download="${fileName}" class="download-btn">⬇ Download Bill</a>
+    <embed src="${blobUrl}" type="application/pdf" width="100%" height="100%" />
+    <script>
+      window.addEventListener('unload', () => URL.revokeObjectURL("${blobUrl}"));
+    </script>
+  </body>
+</html>
+`;
 
   const newTab = window.open();
+  newTab.document.open();
   newTab.document.write(html);
   newTab.document.close();
 

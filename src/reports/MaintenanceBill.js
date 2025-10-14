@@ -14,8 +14,8 @@ const formatDate = (dateString) => {
 
 export const generateMaintenancePDF = (billingData, projects) => {
 
-// 🔹 Step 1: Extract both objects from API response
- const { maintenanceBills, customersMaintenance } = billingData[0];
+  // 🔹 Step 1: Extract both objects from API response
+  const { maintenanceBills, customersMaintenance } = billingData[0];
 
   const doc = new jsPDF("p", "mm", "a4");
 
@@ -125,96 +125,96 @@ export const generateMaintenancePDF = (billingData, projects) => {
 
   let headerY = doc.lastAutoTable.finalY;
 
-   //Header Table
-     autoTable(doc, {
-      startY: doc.lastAutoTable.finalY,
-       body: [
-         
-        [
-         { content: "BARCODE NO.",styles: {} },
-         { content: "REFRENCE NO . ", styles: {} },
-         { content: "BANK ACCOUNT NO . ",colSpan:2, styles: { } },
-         { content: "Please Visit for Duplicate Bill visit:https://e-billingbahriatownlahore.com", rowSpan:13 ,styles: {lineWidth:{top: 0, right: 0.1, bottom: 0.1, left: 0.1} ,fontStyle:"bold", halign:"left" } },
-        ],
+  //Header Table
+  autoTable(doc, {
+    startY: doc.lastAutoTable.finalY,
+    body: [
 
-        [
-          { content:`${maintenanceBills.btNo}`,styles: {  } },
-         { content:`${maintenanceBills.customerNo}`, styles: {  } },
-         { content: "",colSpan:2, styles: {  } },
-        ],
+      [
+        { content: "BARCODE NO.", styles: {} },
+        { content: "REFRENCE NO . ", styles: {} },
+        { content: "BANK ACCOUNT NO . ", colSpan: 2, styles: {} },
+        { content: "Please Visit for Duplicate Bill visit:https://e-billingbahriatownlahore.com", rowSpan: 13, styles: { lineWidth: { top: 0, right: 0.1, bottom: 0.1, left: 0.1 }, fontStyle: "bold", halign: "left" } },
+      ],
+
+      [
+        { content: `${maintenanceBills.btNo}`, styles: {} },
+        { content: `${maintenanceBills.customerNo}`, styles: {} },
+        { content: "", colSpan: 2, styles: {} },
+      ],
 
 
       [
-        { content: "Maintenance Charges", colSpan: 2, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
+        { content: "Maintenance Charges", colSpan: 2, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0 } } },
-        { content: `${maintenanceBills.maintCharges}`, styles: { lineWidth: { top: 0.1, right: 0.5, bottom: 0, left: 0 } } },
+        { content: `${maintenanceBills.maintCharges}`, styles: { lineWidth: { top: 0.1, right: 0.1, bottom: 0, left: 0 } } },
       ],
 
       [
-        { content: "Tax on Services", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
+        { content: "Tax on Services", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
-        { content: `${maintenanceBills.taxAmount}`, styles: { lineWidth: { top: 0, right: 0.5, bottom: 0, left: 0 } } },
+        { content: `${maintenanceBills.taxAmount}`, styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } } },
       ],
 
 
       [
-        { content: "Fine", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
+        { content: "Fine", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
-        { content: `${maintenanceBills.fine}`, styles: { lineWidth: { top: 0, right: 0.5, bottom: 0, left: 0 } } },
+        { content: `${maintenanceBills.fine}`, styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } } },
       ],
 
 
       [
-        { content: "Paint Charges", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
+        { content: "Paint Charges", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
-        { content: "0", styles: { lineWidth: { top: 0, right: 0.5, bottom: 0, left: 0 } } },
+        { content: "0", styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } } },
       ],
 
 
       [
-        { content: "Water Charges", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
+        { content: "Water Charges", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
-        { content: `${maintenanceBills.waterCharges}`, styles: { lineWidth: { top: 0, right: 0.5, bottom: 0, left: 0 } } },
+        { content: `${maintenanceBills.waterCharges}`, styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } } },
       ],
 
 
       [
-        { content: "Advance Charges", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
+        { content: "Advance Charges", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
-        { content: "0", styles: { lineWidth: { top: 0, right: 0.5, bottom: 0, left: 0 } } },
+        { content: "0", styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } } },
       ],
 
 
       [
-        { content: "Previous Arrears(If Any)", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
+        { content: "Previous Arrears(If Any)", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
-        { content: `${maintenanceBills.arrears}`, styles: { lineWidth: { top: 0, right: 0.5, bottom: 0, left: 0 } } },
+        { content: `${maintenanceBills.arrears}`, styles: { lineWidth: { top: 0, right: 0.1, bottom: 0, left: 0 } } },
       ],
 
 
       [
-        { content: "G. Total", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
-        { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
-        { content: `${maintenanceBills.billAmountInDueDate}`, styles: {} },
-      ],
-
-
-      [
-        { content: "Amount Payable within due Date", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, fontSize: 8, halign: "left" } },
+        { content: "G. Total", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
         { content: `${maintenanceBills.billAmountInDueDate}`, styles: {} },
       ],
 
 
       [
-        { content: "Surcharge", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
+        { content: "Amount Payable within due Date", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, fontSize: 8, halign: "left" } },
+        { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
+        { content: `${maintenanceBills.billAmountInDueDate}`, styles: {} },
+      ],
+
+
+      [
+        { content: "Surcharge", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
         { content: `${maintenanceBills.billSurcharge}`, styles: {} },
       ],
 
 
       [
-        { content: "Amount Payable after due date ", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.5 }, halign: "left" } },
+        { content: "Amount Payable after due date ", colSpan: 2, styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0.1 }, halign: "left" } },
         { content: "Rs", styles: { lineWidth: { top: 0, right: 0, bottom: 0, left: 0 } } },
         { content: `${maintenanceBills.billAmountAfterDueDate}`, styles: {} },
       ],
@@ -303,7 +303,7 @@ export const generateMaintenancePDF = (billingData, projects) => {
   });
 
   let chargesY = doc.lastAutoTable.finalY;
-   
+
 
   // ✅ Notice
   autoTable(doc, {
@@ -356,26 +356,26 @@ export const generateMaintenancePDF = (billingData, projects) => {
 
 
       [
-        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}            ${customersMaintenance.block} \nSector:   ${customersMaintenance.sector} `, colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
-        { content: `Refrence Number \n ${customersMaintenance.customerNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
-        { content: `${maintenanceBills.btNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
+        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}            ${customersMaintenance.block} \nSector:   ${customersMaintenance.sector} `, colSpan: 3, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 }, fontStyle: "normal", fontSize: 8, halign: "left" } },
+        { content: `Refrence Number \n ${customersMaintenance.customerNo}`, styles: { fontStyle: "normal", fontSize: 8, halign: "center" } },
+        { content: `${maintenanceBills.btNo}`, styles: { fontStyle: "normal", fontSize: 8, halign: "left" } },
       ],
 
 
 
       [
-        { content: "BILL MONTH",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
-        { content: "PAYMENT WITHIN DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content:`${maintenanceBills.billAmountInDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "BILL MONTH", colSpan: 2, styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: "PAYMENT WITHIN DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: `${maintenanceBills.billAmountInDueDate}`, styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
       ],
 
 
       [
-        { content:`${maintenanceBills.billingMonth}`,colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
-        { content: "PAYMENT AFTER DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content:`${maintenanceBills.billAmountAfterDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: `${maintenanceBills.billingMonth}`, colSpan: 2, styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: "PAYMENT AFTER DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: `${maintenanceBills.billAmountAfterDueDate}`, styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
       ],
 
 
@@ -391,28 +391,28 @@ export const generateMaintenancePDF = (billingData, projects) => {
 
       ],
 
-       
-       [
-        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}              ${customersMaintenance.block} \nSector:   ${customersMaintenance.sector} `, colSpan:3 ,styles: {lineWidth:{top: 0.1, right: 0, bottom: 0, left: 0.1}, fontStyle: "normal", fontSize: 8 , halign:"left" } },
-        { content: `Refrence Number \n ${customersMaintenance.customerNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"center" } },
-        { content: `${maintenanceBills.btNo}`, styles: {fontStyle: "normal", fontSize: 8 , halign:"left" } },
+
+      [
+        { content: `Name : ${customersMaintenance.customerName} \nAddress :  ${customersMaintenance.ploNo}              ${customersMaintenance.block} \nSector:   ${customersMaintenance.sector} `, colSpan: 3, styles: { lineWidth: { top: 0.1, right: 0, bottom: 0, left: 0.1 }, fontStyle: "normal", fontSize: 8, halign: "left" } },
+        { content: `Refrence Number \n ${customersMaintenance.customerNo}`, styles: { fontStyle: "normal", fontSize: 8, halign: "center" } },
+        { content: `${maintenanceBills.btNo}`, styles: { fontStyle: "normal", fontSize: 8, halign: "left" } },
       ],
 
 
 
       [
-        { content: "BILL MONTH",colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
-        { content: "PAYMENT WITHIN DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content:`${maintenanceBills.billAmountInDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: "BILL MONTH", colSpan: 2, styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: "DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: "PAYMENT WITHIN DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: `${maintenanceBills.billAmountInDueDate}`, styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
       ],
 
 
       [
-        { content:`${maintenanceBills.billingMonth}`,colSpan:2, styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign:"left" } },
-        { content: "PAYMENT AFTER DUE DATE", styles: {fontStyle: "normal", fontSize: 7 , halign:"left" } },
-        { content:`${maintenanceBills.billAmountAfterDueDate}`, styles: {fontStyle: "normal", fontSize: 7, halign:"left" } },
+        { content: `${maintenanceBills.billingMonth}`, colSpan: 2, styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: "PAYMENT AFTER DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
+        { content: `${maintenanceBills.billAmountAfterDueDate}`, styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
       ],
 
       [
@@ -487,7 +487,7 @@ export const generateMaintenancePDF = (billingData, projects) => {
 
   // Generate Barcode
   const canvas = document.createElement("canvas");
-  JsBarcode(canvas, "BTL-10014September2025", {
+  JsBarcode(canvas, `${maintenanceBills.btNo}${maintenanceBills.billingMonth}${maintenanceBills.billingYear}`, {
     format: "CODE39",
     displayValue: true,
     fontSize: 14,
@@ -495,16 +495,16 @@ export const generateMaintenancePDF = (billingData, projects) => {
   const imgData = canvas.toDataURL("image/png");
   doc.addImage(imgData, "PNG", 86, NoticeY + 53, 70, 14);
 
+  //Images
+  doc.addImage("Bahria_Town_Logo.png", "PNG", 18, 25, 17, 20);
+  doc.addImage("MaintenanceBill_UrduConditions.png", "PNG", 131.5, 25.75, 64, 106);
+  doc.addImage("urduinstructionmaint02.jpeg", "JPEG", 20, chargesY + 5, 170, 8);
+  doc.addImage("scissors.png", "PNG", 178, NoticeY + 2, 3.8, 3.8);
+  doc.addImage("scissors.png", "PNG", 178, NoticeY + 42, 3.8, 3.8);
 
-doc.addImage("Bahria_Town_Logo.png", "PNG", 18, 25, 17, 20);
-doc.addImage("MaintenanceBill_UrduConditions.png", "PNG",131,26,64,106);
-doc.addImage("urduinstructionmaint02.jpeg", "JPEG", 20, chargesY+5, 170,8);
-doc.addImage("scissors.png", "PNG", 178, NoticeY+2, 3.8, 3.8);
-doc.addImage("scissors.png", "PNG", 178, NoticeY+42, 3.8, 3.8);
 
 
-
-// 🔹 Watermark: DUPLICATE BILL
+  // 🔹 Watermark: DUPLICATE BILL
   doc.saveGraphicsState(); // <-- save current graphics state
   doc.setGState(new doc.GState({ opacity: 1 })); // Only affects this block
   doc.setFont("helvetica", "normal");
@@ -517,32 +517,68 @@ doc.addImage("scissors.png", "PNG", 178, NoticeY+42, 3.8, 3.8);
   
   // window.open(doc.output("bloburl"), "_blank");
 
-  // ✅ 1. Proper filename banana
-  const fileName = `Maintenance Bill Lahore ${maintenanceBills.btNo}.pdf`;
-
-  // ✅ 1. Create a Blob and a temporary URL
+  const fileName = `Maintenance ${maintenanceBills.btNo} ${maintenanceBills.billingMonth} ${maintenanceBills.billingYear} .pdf`;
   const blob = doc.output("blob");
   const blobUrl = URL.createObjectURL(blob);
 
+  // ✅ Emoji favicon (🧰 Electricity emoji)
+  const emoji = "🧰";
+
+  // ✅ Create favicon as SVG (so it's clean and crisp)
+  const faviconSvg = `
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <text y=".9em" font-size="90">${emoji}</text>
+  </svg>
+`;
+  const faviconDataUrl = `data:image/svg+xml,${encodeURIComponent(faviconSvg)}`;
+
+  // ✅ HTML structure
   const html = `
-    <html>
-      <head>
-        <title>${fileName.replace(".pdf", "")}</title>
-      </head>
-      <body style="margin:0; background:#f0f0f0;">
-        <div style="position:fixed; top:16px; right:125px; z-index:10;">
-          <a href="${blobUrl}" download="${fileName}" 
-             style="background:#d32f2f; color:white; padding:10px 20px; border-radius:8px;
-                    text-decoration:none; font-family:sans-serif; font-weight:bold;">
-            ⬇ Download Bill
-          </a>
-        </div>
-        <embed src="${blobUrl}" type="application/pdf" width="100%" height="100%" />
-      </body>
-    </html>
+  <html>
+  <head>
+    <title>${fileName.replace(".pdf", "")}</title>
+
+    <!-- Emoji favicon -->
+    <link rel="icon" href="${faviconDataUrl}" type="image/svg+xml" />
+
+    <style>
+      body {
+        margin: 0;
+        background: #f4f4f4;
+        font-family: 'Segoe UI', sans-serif;
+      }
+      .download-btn {
+        position: fixed;
+        top: 7px;
+        right: 125px;
+        background: #1976d2;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      }
+      .download-btn:hover {
+        background: #0d47a1;
+      }
+      embed {
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="${blobUrl}" download="${fileName}" class="download-btn">⬇ Download Bill</a>
+    <embed src="${blobUrl}" type="application/pdf" width="100%" height="100%" />
+    <script>
+      window.addEventListener('unload', () => URL.revokeObjectURL("${blobUrl}"));
+    </script>
+  </body>
+  </html>
   `;
 
   const newTab = window.open();
+  newTab.document.open();
   newTab.document.write(html);
   newTab.document.close();
 };
