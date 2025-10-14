@@ -852,8 +852,32 @@ export const generateElectricityPDF = (billingData, projects) => {
         {
           content: electricityBill.billAmountAfterDueDate,
           styles: { fontStyle: "bold" },
-        },
-      ],
+        }
+      ]
+    ],
+    theme: "grid",
+    bodyStyles: {
+      fillColor: false,
+      textColor: [0, 0, 0],
+      lineColor: [0, 0, 0],
+      halign: "center",
+      valign: "middle",
+      cellPadding: { top: 0.5, bottom: 0.5 },
+      fontSize: 8,
+    },
+    columnStyles: {
+      0: { cellWidth: 30 },
+      1: { cellWidth: 30 },
+    },
+  });
+
+  let bankcopyY = doc.lastAutoTable.finalY;
+
+  //BTL Copy
+  autoTable(doc, {
+    startY: doc.lastAutoTable.finalY,
+    head: [],
+    body: [
       [
         {
           content:
@@ -924,21 +948,12 @@ export const generateElectricityPDF = (billingData, projects) => {
       0: { cellWidth: 30 },
       1: { cellWidth: 30 },
     },
-
-    // didParseCell: function (data) {
-    //   if (data.section !== "body") return;
-
-    //   const { row,
-    //     // column,
-    //     cell } = data;
-    //   const r = row.index;
-    //   // const c = column.index;
-
-    //   // Helper to merge style properties
-    //   const setCell = (styles) => Object.assign(cell.styles, styles);
-
-    // }
   });
+
+
+
+
+
 
   //Electricity Table
   autoTable(doc, {
@@ -1106,7 +1121,7 @@ export const generateElectricityPDF = (billingData, projects) => {
   doc.text("Note:", 21, duplicatelinkY + 48);
   doc.addImage("urdumessage3.png", "PNG", 21, duplicatelinkY + 49, 70, 14);
   doc.addImage("scissors.png", "PNG", 161, HistoryY - 2.5, 3.5, 3.5);
-  doc.addImage("scissors.png", "PNG", 161, HistoryY + 18.5, 3.5, 3.5);
+  doc.addImage("scissors.png", "PNG", 161, bankcopyY+0.5, 3.5, 3.5);
 
   // 🔹 Watermark: DUPLICATE BILL
   doc.saveGraphicsState(); // <-- save current graphics state
