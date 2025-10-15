@@ -13,9 +13,13 @@ const formatDate = (dateString) => {
 
 export const generateElectricityPDF = (billingData, projects) => {
   // 🔹 Step 1: Extract both objects from API response
-  const { electricityBill, customerDetail } = billingData[0];
+  const { electricityBill, customerDetail, billHistory } = billingData;
+
+
 
   const doc = new jsPDF("p", "mm", "a4");
+
+  
 
   // Generate Barcode
   const canvas = document.createElement("canvas");
@@ -454,6 +458,10 @@ export const generateElectricityPDF = (billingData, projects) => {
     },
   });
 
+
+
+
+
   //Please Visit for Duplicate Bill:
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY,
@@ -794,6 +802,21 @@ export const generateElectricityPDF = (billingData, projects) => {
 
   let HistoryY = doc.lastAutoTable.finalY + 3;
 
+  doc.addImage("urdumessage1.jpeg", "JPEG", 15, headerY + 47, 115, 30);
+  doc.addImage("urdumessage3.png", "PNG", 21, duplicatelinkY + 49, 70, 14);
+
+
+
+  // 🔹 Watermark: DUPLICATE BILL
+  doc.saveGraphicsState(); // <-- save current graphics state
+  doc.setGState(new doc.GState({ opacity: 1 })); // Only affects this block
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(40);
+  doc.setTextColor(200, 200, 200); // Light gray
+  doc.text("DUPLICATE BILL", 60, 100, { angle: 20 });
+  doc.text("DUPLICATE BILL", 32, 210, { angle: 20 });
+  doc.restoreGraphicsState(); // <-- restore so rest of PDF is normal
+
   //Bank Copy
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY,
@@ -1061,18 +1084,18 @@ export const generateElectricityPDF = (billingData, projects) => {
     tableWidth: 60,
     body: [
       [{ content: "Month", colSpan: 2 }, "Units", "Bill", "Payment"],
-      ["Jan", "2025", "150", "9810", "9810"],
-      ["Feb", "2025", "154", "9800", "9800"],
-      ["Mar", "2025", "221", "14660", "14660"],
-      ["Apr", "2025", "436", "27780", "27780"],
-      ["May", "2025", "605", "38010", "38010"],
-      ["Jun", "2025", "1109", "69170", "69170"],
-      ["Jul", "2025", "1069", "63670", "63670"],
-      ["Aug", "2025", "1073", "64850", "64850"],
-      ["Sep", "2025", "809", "47390", "0000"],
-      ["Oct", "2025", "773", "50660", "50660"],
-      ["Nov", "2024", "289", "18570", "18570"],
-      ["Dec", "2024", "158", "9560", "9560"],
+      [`${billHistory[0]?.billingMonth?.slice(0, 3)}`, `${billHistory[0]?.billingYear}`, `${billHistory[0]?.units}`, `${billHistory[0]?.bill}`, `${billHistory[0]?.payment}`],
+      [`${billHistory[1]?.billingMonth?.slice(0, 3)}`, `${billHistory[1]?.billingYear}`, `${billHistory[1]?.units}`, `${billHistory[1]?.bill}`, `${billHistory[1]?.payment}`],
+      [`${billHistory[2]?.billingMonth?.slice(0, 3)}`, `${billHistory[2]?.billingYear}`, `${billHistory[2]?.units}`, `${billHistory[2]?.bill}`, `${billHistory[2]?.payment}`],
+      [`${billHistory[3]?.billingMonth}`,              `${billHistory[3]?.billingYear}`, `${billHistory[3]?.units}`, `${billHistory[3]?.bill}`, `${billHistory[3]?.payment}`],
+      [`${billHistory[4]?.billingMonth}`,              `${billHistory[4]?.billingYear}`, `${billHistory[4]?.units}`, `${billHistory[4]?.bill}`, `${billHistory[4]?.payment}`],
+      [`${billHistory[5]?.billingMonth}`,              `${billHistory[5]?.billingYear}`, `${billHistory[5]?.units}`, `${billHistory[5]?.bill}`, `${billHistory[5]?.payment}`],
+      [`${billHistory[6]?.billingMonth}`,              `${billHistory[6]?.billingYear}`, `${billHistory[6]?.units}`, `${billHistory[6]?.bill}`, `${billHistory[6]?.payment}`],
+      [`${billHistory[7]?.billingMonth?.slice(0, 3)}`, `${billHistory[7]?.billingYear}`, `${billHistory[7]?.units}`, `${billHistory[7]?.bill}`, `${billHistory[7]?.payment}`],
+      [`${billHistory[8]?.billingMonth?.slice(0, 3)}`, `${billHistory[8]?.billingYear}`, `${billHistory[8]?.units}`, `${billHistory[8]?.bill}`, `${billHistory[8]?.payment}`],
+      [`${billHistory[9]?.billingMonth?.slice(0, 3)}`, `${billHistory[9]?.billingYear}`, `${billHistory[9]?.units}`, `${billHistory[9]?.bill}`, `${billHistory[9]?.payment}`],
+      [`${billHistory[10]?.billingMonth?.slice(0, 3)}`, `${billHistory[10]?.billingYear}`, `${billHistory[10]?.units}`, `${billHistory[10]?.bill}`, `${billHistory[10]?.payment}`],
+      [`${billHistory[11]?.billingMonth?.slice(0, 3)}`, `${billHistory[11]?.billingYear}`, `${billHistory[11]?.units}`, `${billHistory[11]?.bill}`, `${billHistory[11]?.payment}`],
     ],
     theme: "plain",
     bodyStyles: {
@@ -1114,27 +1137,16 @@ export const generateElectricityPDF = (billingData, projects) => {
   // Images
   //doc.addImage("imageName", "type", x, y, width, height);
   doc.addImage("logo.png", "PNG", 15, 23, 18, 18);
-  doc.addImage("urdumessage1.jpeg", "JPEG", 15, headerY + 47, 115, 30);
+  
   doc.addImage("urdumessage2.png", "PNG", 99, duplicatelinkY + 47, 96, 23);
   doc.setFont("times", "normal");
   doc.setFontSize(12);
   doc.text("Note:", 21, duplicatelinkY + 48);
-  doc.addImage("urdumessage3.png", "PNG", 21, duplicatelinkY + 49, 70, 14);
+  
   doc.addImage("scissors.png", "PNG", 161, HistoryY - 2.5, 3.5, 3.5);
   doc.addImage("scissors.png", "PNG", 161, bankcopyY+0.5, 3.5, 3.5);
 
-  // 🔹 Watermark: DUPLICATE BILL
-  doc.saveGraphicsState(); // <-- save current graphics state
-  doc.setGState(new doc.GState({ opacity: 1 })); // Only affects this block
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(40);
-  doc.setTextColor(200, 200, 200); // Light gray
-  doc.text("DUPLICATE BILL", 60, 100, { angle: 20 });
-  doc.text("DUPLICATE BILL", 32, 210, { angle: 20 });
-  doc.restoreGraphicsState(); // <-- restore so rest of PDF is normal
-
-
-
+  
 
 
   
