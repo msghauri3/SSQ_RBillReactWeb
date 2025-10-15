@@ -521,7 +521,7 @@ export const generateMaintenancePDF = (billingData, projects) => {
   const blob = doc.output("blob");
   const blobUrl = URL.createObjectURL(blob);
 
-  // ✅ Emoji favicon (🧰 Electricity emoji)
+  // ✅ Emoji favicon (🧰 Maintenance emoji)
   const emoji = "🧰";
 
   // ✅ Create favicon as SVG (so it's clean and crisp)
