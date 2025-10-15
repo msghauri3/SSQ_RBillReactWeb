@@ -134,7 +134,11 @@ const Billing = () => {
         }
       }
 
-      const apiUrl = `https://localhost:7108/api/${billingData.billingType === "electricity" ? "ElectricityBill" : "MaintenanceBill"
+      // const apiUrl = `https://localhost:7108/api/${billingData.billingType === "electricity" ? "ElectricityBill" : "MaintenanceBill"
+      //   }?btNo=${formattedBTNo}&project=${billingData.project}&billingType=${billingData.billingType}`;
+
+
+      const apiUrl = `http://172.20.228.2/api/${billingData.billingType === "electricity" ? "ElectricityBill" : "MaintenanceBill"
         }?btNo=${formattedBTNo}&project=${billingData.project}&billingType=${billingData.billingType}`;
 
       console.log("🌐 API URL:", apiUrl);

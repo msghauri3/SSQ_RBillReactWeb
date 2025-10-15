@@ -376,9 +376,33 @@ export const generateMaintenancePDF = (billingData, projects) => {
         { content: formatDate(maintenanceBills.dueDate), styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
         { content: "PAYMENT AFTER DUE DATE", styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
         { content: `${maintenanceBills.billAmountAfterDueDate}`, styles: { fontStyle: "normal", fontSize: 7, halign: "left" } },
-      ],
+      ]
+
+    ],
 
 
+    theme: "grid",
+    bodyStyles: {
+      fillColor: false,
+      textColor: [0, 0, 0],
+      lineColor: [0, 0, 0],
+      // halign: "left",
+    },
+
+    columnStyles: {
+      0: { cellWidth: 30 },
+      1: { cellWidth: 30 },
+      3: { cellWidth: 40 }
+    },
+
+  });
+
+  let bankcopyY = doc.lastAutoTable.finalY;
+
+  // ✅ BTL copy
+  autoTable(doc, {
+    startY: doc.lastAutoTable.finalY,
+    body: [
 
       [
         { content: '--------------------------------------------------     CUT HERE    ----------------------------------------------', colSpan: 5, styles: { halign: "center" } }
@@ -447,7 +471,7 @@ export const generateMaintenancePDF = (billingData, projects) => {
       // Helper to merge style properties
       const setCell = (styles) => Object.assign(cell.styles, styles);
 
-      if (r === 6) {
+      if (r === 1) {
         setCell({
           minCellHeight: 20
         })
@@ -457,6 +481,14 @@ export const generateMaintenancePDF = (billingData, projects) => {
     }
 
   });
+
+
+
+
+
+
+
+
 
 
   //Bank Account No (BTL Branch)
@@ -493,14 +525,14 @@ export const generateMaintenancePDF = (billingData, projects) => {
     fontSize: 14,
   });
   const imgData = canvas.toDataURL("image/png");
-  doc.addImage(imgData, "PNG", 86, NoticeY + 53, 70, 14);
+  doc.addImage(imgData, "PNG", 85, bankcopyY+12, 70, 14);
 
   //Images
   doc.addImage("Bahria_Town_Logo.png", "PNG", 18, 25, 17, 20);
   doc.addImage("MaintenanceBill_UrduConditions.png", "PNG", 131.5, 25.75, 64, 106);
   doc.addImage("urduinstructionmaint02.jpeg", "JPEG", 20, chargesY + 5, 170, 8);
   doc.addImage("scissors.png", "PNG", 178, NoticeY + 2, 3.8, 3.8);
-  doc.addImage("scissors.png", "PNG", 178, NoticeY + 42, 3.8, 3.8);
+  doc.addImage("scissors.png", "PNG", 178, bankcopyY+2, 3.8, 3.8);
 
 
 
