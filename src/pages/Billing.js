@@ -67,6 +67,45 @@ const Billing = () => {
     if (error) setError("");
   };
 
+  const handleGenerate = async () => {
+    // if (!billingData.billingType) return setError("Please select billing type");
+    // if (!billingData.btNo) return setError("Please enter BTNo");
+    // if (!billingData.project) return setError("Please select project");
+
+    setLoading(true);
+    setError("");
+
+    try {
+      console.log("⚡ Generate button clicked");
+      console.log("Selected Type:", billingData.billingType);
+
+      // 👇 Dummy data (replace with your own sample structure)
+      const dummyData = [
+        {
+          btNo: billingData.btNo,
+          project: billingData.project,
+        },
+      ];
+
+      // 👇 Type ke hisab se PDF function call hoga
+      if (billingData.billingType === "electricity") {
+        console.log("⚡ Generating Electricity Bill...");
+        generateElectricityPDF(dummyData, projects);
+      } else {
+        console.log("🧰 Generating Maintenance Bill...");
+        generateMaintenancePDF(dummyData, projects);
+      }
+
+    } catch (err) {
+      console.error("❌ Error generating bill:", err);
+      setError("Error generating bill. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
   // const handleGenerate = async () => {
   //   if (!billingData.billingType) return setError("Please select billing type");
   //   if (!billingData.btNo) return setError("Please enter BTNo");
@@ -76,11 +115,23 @@ const Billing = () => {
   //   setError("");
 
   //   try {
-  //     const apiUrl = `https://localhost:7108/api/${billingData.billingType === "electricity"
-  //       ? "ElectricityBill"
-  //       : "MaintenanceBill"
-  //       }?btNo=${billingData.btNo}&project=${billingData.project
-  //       }&billingType=${billingData.billingType}`;
+  //     let formattedBTNo = billingData.btNo.trim().toUpperCase();
+
+  //     // ✅ Automatically add correct prefix based on project
+  //     if (!formattedBTNo.startsWith("BTL-") && !formattedBTNo.startsWith("BTO-")) {
+  //       if (billingData.project === "Mohlanwal") {
+  //         formattedBTNo = `BTL-${formattedBTNo}`;
+  //       } else if (billingData.project === "Orchards") {
+  //         formattedBTNo = `BTO-${formattedBTNo}`;
+  //       }
+  //     }
+
+  //     // const apiUrl = `https://localhost:7108/api/${billingData.billingType === "electricity" ? "ElectricityBill" : "MaintenanceBill"
+  //     //   }?btNo=${formattedBTNo}&project=${billingData.project}&billingType=${billingData.billingType}`;
+
+
+  //     const apiUrl = `http://172.20.228.2/api/${billingData.billingType === "electricity" ? "ElectricityBill" : "MaintenanceBill"
+  //       }?btNo=${formattedBTNo}&project=${billingData.project}&billingType=${billingData.billingType}`;
 
   //     console.log("🌐 API URL:", apiUrl);
 
@@ -113,65 +164,6 @@ const Billing = () => {
   //     setLoading(false);
   //   }
   // };
-
-  const handleGenerate = async () => {
-    if (!billingData.billingType) return setError("Please select billing type");
-    if (!billingData.btNo) return setError("Please enter BTNo");
-    if (!billingData.project) return setError("Please select project");
-
-    setLoading(true);
-    setError("");
-
-    try {
-      let formattedBTNo = billingData.btNo.trim().toUpperCase();
-
-      // ✅ Automatically add correct prefix based on project
-      if (!formattedBTNo.startsWith("BTL-") && !formattedBTNo.startsWith("BTO-")) {
-        if (billingData.project === "Mohlanwal") {
-          formattedBTNo = `BTL-${formattedBTNo}`;
-        } else if (billingData.project === "Orchards") {
-          formattedBTNo = `BTO-${formattedBTNo}`;
-        }
-      }
-
-      // const apiUrl = `https://localhost:7108/api/${billingData.billingType === "electricity" ? "ElectricityBill" : "MaintenanceBill"
-      //   }?btNo=${formattedBTNo}&project=${billingData.project}&billingType=${billingData.billingType}`;
-
-
-      const apiUrl = `http://172.20.228.2/api/${billingData.billingType === "electricity" ? "ElectricityBill" : "MaintenanceBill"
-        }?btNo=${formattedBTNo}&project=${billingData.project}&billingType=${billingData.billingType}`;
-
-      console.log("🌐 API URL:", apiUrl);
-
-      const response = await fetch(apiUrl);
-
-      if (response.status === 404) {
-        setError("No bill found for this BTNo and Project.");
-        setLoading(false);
-        return;
-      }
-
-      if (!response.ok) throw new Error("Failed to fetch bill data");
-
-      const data = await response.json();
-      console.log("✅ API Response:", data);
-
-      if (!data || data.length === 0) {
-        setError("No bill found for this BTNo and Project.");
-      } else {
-        if (billingData.billingType === "electricity") {
-          generateElectricityPDF(data, projects);
-        } else {
-          generateMaintenancePDF(data, projects);
-        }
-      }
-    } catch (err) {
-      console.error("❌ Fetch Error:", err);
-      setError("Error fetching bill data. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const resetForm = () => {
     setBillingData({ billingType: "electricity", btNo: "", project: "" });
