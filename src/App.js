@@ -8,7 +8,7 @@ import TopBar from './components/TopBar';
 import LinksBar from './components/LinksBar';
 import Footer from './components/Footer';
 import ScrollTop from './components/ScrollTop';
-import Billing from './pages/Billing';
+import Billing from './pages/BillingA';
 import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
