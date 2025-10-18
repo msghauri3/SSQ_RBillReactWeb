@@ -1,14 +1,11 @@
 .bt-form-wrapper {
   width: 100%;
-  padding: 15px;
-  background-color: white;
+  padding: 0;
+  background-color: #f8f9fa;
   display: grid;
   grid-template-columns: 1.2fr 1fr 1.2fr;
   gap: 15px;
   margin: 0;
-  border: 5px solid #a9a2dd;
-  border-radius: 8px;
-  box-sizing: border-box;
 }
 
 /* Column 1 */
