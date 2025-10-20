@@ -11,17 +11,17 @@ function ImageGrid() {
     },
     {
       id: 2,
-      name: 'Orchards',
+      name: 'Lahore',
       image: '/lahore.jpg'
     },
     {
       id: 3,
-      name: 'Downtown',
+      name: 'Nawabshah',
       image: '/nawabshah.jpg'
     },
     {
       id: 4,
-      name: 'Riverside',
+      name: 'Rawalpindi',
       image: '/rawalpindi.jpg'
     }
   ];

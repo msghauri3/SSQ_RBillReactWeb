@@ -1,13 +1,13 @@
 // AppRBillWebReact.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './AppRBillWebReact/components/Header';
-import Header2 from './AppRBillWebReact/components/Header2';
-import Home from './AppRBillWebReact/pages/Home';
-import About from './AppRBillWebReact/pages/About';
-import Projects from './AppRBillWebReact/pages/Projects';
-import Contact from './AppRBillWebReact/pages/Contact';
-import Footer from './AppRBillWebReact/components/Footer';
+import Header from './components/Header';
+import Header2 from './components/Header2';
+import Home from './pages/Home';
+import About from './pages/About';
+import Projects from './pages/Projects';
+import Contact from './pages/Contact';
+import Footer from './components/Footer';
 
 function AppRBillWebReact() {
   return (

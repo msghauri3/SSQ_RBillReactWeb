@@ -1,27 +1,27 @@
-import React from "react";
-import "./About.css"; // 👈 yahan apna custom CSS likh lena
+import React from 'react';
+import '../styles/Pages.css';
 
-const About = () => {
+function About() {
   return (
-    <section id="about" className="about">
-      <div className="container">
-        <div className="heading-section">
-          <h2>ABOUT US</h2>
-          <p>
-            Bahria Town has been shaping landscapes and lives in Pakistan since
-            the company’s inception in 1996. Not just about building homes,
-            Bahria Town develops value-added, master-planned communities housing
-            thousands of families who are enjoying a complete living experience.
-            Upon completion, the under-development projects in Karachi,
-            Islamabad, Rawalpindi, Lahore and Nawabshah will accommodate more
-            than a million residents. Bahria Town’s 35,000 employees are
-            delivering iconic developments, driving leadership, pioneering
-            innovation and creating a legacy for generations to come.
-          </p>
-        </div>
+    <div className="page-container">
+      <h2>About Us</h2>
+      <div className="page-content">
+        <p>
+          Bahria Town Pvt Ltd is a leading real estate developer in Pakistan.
+          We are committed to providing quality properties and excellent customer service.
+        </p>
+        <p>
+          With over 20 years of experience, we have successfully developed multiple projects
+          across major cities of Pakistan.
+        </p>
+        <h3>Our Mission</h3>
+        <p>
+          To develop sustainable and affordable housing communities that meet the needs
+          of modern Pakistani families.
+        </p>
       </div>
-    </section>
+    </div>
   );
-};
+}
 
 export default About;

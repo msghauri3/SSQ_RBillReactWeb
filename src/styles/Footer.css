@@ -1,0 +1,35 @@
+footer a:hover {
+  color: #ffcc00 !important;
+  text-decoration: underline;
+}
+
+/* Add elegant vertical dividers between footer sections */
+.footer-section {
+  position: relative;
+  padding-right: 20px;
+}
+
+/* Add vertical divider line */
+@media (min-width: 992px) {
+  .footer-section:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    right: 0;
+    height: 80%;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Make text a bit tighter on smaller screens */
+@media (max-width: 768px) {
+  footer {
+    text-align: center;
+  }
+
+  .footer-section {
+    padding-right: 0;
+    border: none;
+  }
+}
