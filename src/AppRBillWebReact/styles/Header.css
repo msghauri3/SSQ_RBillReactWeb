@@ -1,67 +1,65 @@
+/* AppRBillWebReact/styles/Header.css */
 .header {
-  background-color: #003153;
+  background-color: #2F3C7E;
   color: white;
   padding: 12px 24px;
-   text-align: left; /* Changed from center to left */
-  height: 70px;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Changed from center to flex-start */
-}
-
-.header h1 {
-  font-size: 20px;
-  font-weight: bold;
+  justify-content: space-between;
+  height: 70px;
+  width: 100%;
+  box-sizing: border-box;
   margin: 0;
 }
 
-/* Captcha Styling */
-.captcha-box {
+.header-left {
   display: flex;
-  gap: 10px;
   align-items: center;
-  margin-bottom: 15px;
+  gap: 15px;
+  flex-shrink: 0;
 }
 
-.captcha-display {
-  flex: 1;
-  background-color: #f0f0f0;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  padding: 12px 15px;
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 4px;
-  text-align: center;
-  color: #1A1542;
-  font-family: 'Courier New', monospace;
-  user-select: none;
+.header-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  background-color: transparent;
+  padding: 5px;
+  border-radius: 4px;
 }
 
-.captcha-refresh-btn {
-  background-color: #1A1542;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
+.header h1 {
   font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  height: 44px;
-  width: 44px;
+  font-weight: bold;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.header-nav {
   display: flex;
+  gap: 20px;
   align-items: center;
-  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.captcha-refresh-btn:hover {
-  background-color: #2a2a5a;
+.nav-link {
+  color: #CADCFC;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
 }
 
-.error-message {
-  display: block;
-  color: #dc3545;
-  font-size: 14px;
-  margin-top: 8px;
-  font-weight: 500;
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffeb3b;
 }
