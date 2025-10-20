@@ -2,7 +2,13 @@
   width: 100%;
   padding: 40px 20px;
   background-color: #f8f9fa;
-  min-height: 600px;
+  min-height: calc(100vh - 375px); /* header + footer ke hisab se */
+  
+  display: flex;                /* enable flexbox */
+  flex-direction: column;       /* content stack vertically */
+  justify-content: center;      /* center vertically */
+  align-items: center;          /* center horizontally */
+  box-sizing: border-box;       /* ensure padding doesn't affect layout */
 }
 
 .page-container h2 {
@@ -15,7 +21,7 @@
 
 .page-content {
   max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
   background-color: white;
   padding: 30px;
   border-radius: 8px;
