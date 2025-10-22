@@ -848,7 +848,8 @@ autoTable(doc, {
 
   // ✅ Replace emoji favicon with PNG from public folder
   // (make sure "logo.png" exists inside "public")
-  const faviconUrl = `${window.location.origin}/bag.png`;
+  // const faviconUrl = `${window.location.origin}/bag.png`;
+  const faviconUrl = "bag.png";
 
   // ✅ HTML structure
   const html = `
