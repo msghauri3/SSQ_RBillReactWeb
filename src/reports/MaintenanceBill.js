@@ -833,7 +833,7 @@ autoTable(doc, {
   
 // Images
   //doc.addImage("imageName", "type", x, y, width, height);
-  doc.addImage("Logo.png", "PNG", 18, 16, 16, 16);
+  doc.addImage("Logo.png", "PNG", 17, 15, 19, 19);
   doc.addImage("Logo.png", "PNG", 19.5,MaintChargesY+10, 13, 13);
   doc.addImage("Logo.png", "PNG", 19.5,OfficecopyY+10, 13, 13);
   
