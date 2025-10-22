@@ -532,7 +532,7 @@ export const generateElectricityPDF = (data, projects) => {
   // ✅ Replace emoji favicon with PNG from public folder
   // (make sure "logo.png" exists inside "public")
   // const faviconUrl = `${window.location.origin}/lightning.png`;
-  const faviconUrl = "lightning.png";
+  //const faviconUrl = "lightning.png";
 
 
   // ✅ HTML structure
@@ -542,7 +542,7 @@ export const generateElectricityPDF = (data, projects) => {
     <title>${fileName.replace(".pdf", "")}</title>
 
     <!-- PNG favicon -->
-    <link rel="icon" href="${faviconUrl}" type="image/png" />
+    <link rel="icon" type="image/png" href="lightning.png" />
 
     <style>
       body {
